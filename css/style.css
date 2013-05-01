@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+@media screen and (max-width: 1700px)  {
+	
+}
+
+body {
+	font-family: 'Roboto', Helvetica, sans-serif;
+	font-weight: 200;
+	/*background-color: #20d0d0;*/
+}
+a {
+	text-decoration: none;
+}
+h1 {
+	
+}
+h2 {
+	
+}
+h3 {
+	
+}
+img {
+
+}
+
+/****************/
+/** BACKGROUND **/
+/****************/
+
+img.bg {
+	min-height: 100%;
+min-width: 1024px;
+	width: 100%;
+	height: auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+}	
+@media screen and (max-width: 1024px){
+	img.bg {
+		left: 50%;
+		margin-left: -512px; 
+	}
+}
+
+/************/
+/** HEADER **/
+/************/
+
+header {
+	
+}
+nav {
+	
+}
+
+/******************/
+/** PAGE CONTENT **/
+/******************/
+
+input {
+	color: #758b8e;
+	border: none;
+	text-align: right;
+	width: 240px;
+	padding: 15px 20px 15px 0;
+	margin-bottom: 10px;
+	font-size: 12pt;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+form {
+	width: 260px;
+}
+
+/** index.php **/
+
+#start_page {
+	position: relative;
+	width: 260px;
+	margin: 0 auto;
+}
+#logostart {
+	margin: 190px 0 30px 40px;
+}
+
+/** register.php **/
+
+#register_page {
+	position: relative;
+	width: 260px;
+	margin: 0 auto;
+}
+
+#register_logo {
+	margin: 100px 0 30px 50px;
+}
+
+#register_btn {
+	background: none;
+	background-image: url('../images/createaccount.png');
+	width: 260px;
+	height: 49px;
+	padding: 0;
+	margin-top: 20px;
+	border: none;
+	float: left;
+}
+
+#register a {
+	margin-left: 65px;
+	color: #FFF;
+	font-weight: 300;
+}
+
+/** login.php **/
+
+#login_page {
+	position: relative;
+	width: 260px;
+	margin: 0 auto;
+}
+form img {
+	width: 120px;
+	margin-top: 20px;
+	float: left;
+}
+#login_btn {
+	background: none;
+	background-image: url('../images/login.png');
+	width: 120px;
+	height: 49px;
+	padding: 0;
+	margin-top: 20px;
+	margin-left: 20px;
+	border: none;
+	float: left;
+}
+#login_logo {
+	margin: 200px 0 30px 50px;
+}
+
+/** zones **/
+
+
+
+/** articles **/
+
+
+
+/************/
+/** FOOTER **/
+/************/
+
+footer {
+	
+}
