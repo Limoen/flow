@@ -7,7 +7,6 @@
 body {
 	font-family: 'Roboto', Helvetica, sans-serif;
 	font-weight: 200;
-	/*background-color: #20d0d0;*/
 }
 a {
 	text-decoration: none;
@@ -24,14 +23,50 @@ h3 {
 img {
 
 }
+input[type='text'], input[type='password'], input[type='email'] {
+	color: #FFF;
+	border: none;
+	text-align: right;
+	width: 240px;
+	padding: 15px 20px 15px 0;
+	margin-bottom: 10px;
+	font-size: 12pt;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: rgba(158, 174, 173, 0.20);
+}
+input[type='submit']
+{
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   border: none;
+}
+form {
+	width: 260px;
+}
+
+::-webkit-input-placeholder {
+   color: #FFF;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: #FFF;  
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #FFF;  
+}
+:-ms-input-placeholder {  
+   color: #FFF;  
+}
 
 /****************/
-/** BACKGROUND **/
+/** Background **/
 /****************/
 
 img.bg {
 	min-height: 100%;
-min-width: 1024px;
+	min-width: 1024px;
 	width: 100%;
 	height: auto;
 	position: fixed;
@@ -46,67 +81,146 @@ min-width: 1024px;
 }
 
 /************/
-/** HEADER **/
+/** Header **/
 /************/
 
 header {
-	
+	position: relative;
 }
 nav {
 	
 }
 
-/******************/
-/** PAGE CONTENT **/
-/******************/
+/***********/
+/** Index **/
+/***********/
 
-input {
-	color: #758b8e;
-	border: none;
-	text-align: right;
-	width: 240px;
-	padding: 15px 20px 15px 0;
-	margin-bottom: 10px;
-	font-size: 12pt;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+.testfade {
+	display: none;
 }
-form {
-	width: 260px;
-}
-
-/** index.php **/
 
 #start_page {
+	position: relative;
+	width: 400px;
+	margin: 0 auto;
+}
+.fade1 {
+	width: 260px;
+	margin: 300px 0 0 70px;	
+}
+.fade2 {
+	margin: 300px 0 30px 120px;
+}
+
+/***********/
+/** Login **/
+/***********/
+
+#login_page {
 	position: relative;
 	width: 260px;
 	margin: 0 auto;
 }
-#logostart {
-	margin: 190px 0 30px 40px;
+
+.testfeedback {
+	position: relative;
+	margin: 0 auto;
+	width: 380px;
+	float: right;
+	margin-top: 430px;
 }
 
-/** register.php **/
+#feedback_login {
+	position: absolute;
+    background-color: rgba(0, 183, 186, 0.4);
+    width: 120px;
+	padding: 15px 20px 18px 0px;
+	left: 35px;
+	color: #FFF;
+	font-weight: 300;
+    -webkit-border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+#feedback_login:before {
+   content:"";
+   position: absolute;
+   width: 0;
+   height: 0;
+   border-top: 25px solid transparent;
+   border-right: 35px solid rgba(0, 183, 186, 0.4);
+   border-bottom: 24px solid transparent;
+   margin: -15px 10px 0 -35px;
+}
+
+#login_btn {
+	background-color: #0a2429;
+	color: #FFF;
+	width: 120px;
+	font-size: 14pt;
+	font-weight: light;
+	margin: 0;
+	margin-left: 12px;
+	padding: 13px 15px 14px 15px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	float: left;
+}
+#login_btn:hover {
+	color: #FFF;
+}
+#login_logo {
+	margin: 220px 0 30px 48px;
+	width:160px;
+}
+
+#reg_btn {
+	padding: 15px 17px;
+	background-color: #0a2429;
+	color: #FFF;
+	font-size: 15pt;
+	font-weight: 400;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	float:left;
+}
+#reg_btn:hover {
+	color: #FFF;
+}
+/**************/
+/** Register **/
+/**************/
 
 #register_page {
 	position: relative;
 	width: 260px;
 	margin: 0 auto;
+	top: 50px;
 }
 
 #register_logo {
-	margin: 100px 0 30px 50px;
+	margin:100px 0 30px 48px;
+	width:160px;
 }
 
 #register_btn {
-	background: none;
-	background-image: url('../images/createaccount.png');
+	background-color: #0a2429;
+	color: #FFF;
 	width: 260px;
 	height: 49px;
-	padding: 0;
-	margin-top: 20px;
-	border: none;
+	font-size: 14pt;
+	font-weight: light;
+	margin: 0;
+	margin-bottom: 10px;
+	padding: 13px 15px 14px 15px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 	float: left;
 }
 
@@ -116,45 +230,103 @@ form {
 	font-weight: 300;
 }
 
-/** login.php **/
-
-#login_page {
+.userfeed {
 	position: relative;
+}
+
+/*************/
+/** Sidebar **/
+/*************/
+
+#build-menu-page {
+	left: 0;
+  	position: relative;
+  	background-color: #fff; 
+}
+
+#build-menu {
+	visibility: visible;
+	z-index: 0;
+	opacity: 1;
+	-webkit-transform: none;
+	-moz-transform: none;
+	-o-transform: none;
+	-ms-transform: none;
+	transform: none;
+	display: none;
 	width: 260px;
-	margin: 0 auto;
-}
-form img {
-	width: 120px;
-	margin-top: 20px;
-	float: left;
-}
-#login_btn {
-	background: none;
-	background-image: url('../images/login.png');
-	width: 120px;
-	height: 49px;
 	padding: 0;
-	margin-top: 20px;
-	margin-left: 20px;
-	border: none;
-	float: left;
+	position: static;
+	z-index: 0;
+	top: 0;
+	height: 100%;
+	overflow-y: auto;
+	left: 0;
+	background-color: #141b1c;
 }
-#login_logo {
-	margin: 200px 0 30px 50px;
+
+#build-menu a, #build-menu a:hover {
+	color: #FFF;
+}
+#build-menu ul li {
+	width: 260px;
+	background-color: #20c3c3;
+	text-align: center;
+	padding: 30px 0;
+	margin-top: 100px;
 }
 
-/** zones **/
+.build-menu-animating #build-menu-page {
+	position: fixed;
+	overflow: hidden;
+	width: 100%;
+	top: 0;
+	bottom: 0;
+}
 
+.build-menu-animating.build-menu-close #build-menu-page,
+.build-menu-animating.build-menu-open #build-menu-page {
+	-webkit-transition: -webkit-transform 250ms;
+	-moz-transition: -moz-transform 250ms;
+	-o-transition: -o-transform 250ms;
+	-ms-transition: -ms-transform 250ms;
+	transition: transform 250ms;
+}
 
+.build-menu-animating.build-menu-open #build-menu-page {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
 
-/** articles **/
+.build-menu-animating #build-menu {
+	display: block
+}
 
+.build-menu-open #build-menu {
+	display: block;
+	-webkit-transition-delay: 0ms, 0ms, 0ms;
+	-moz-transition-delay: 0ms, 0ms, 0ms;
+	-o-transition-delay: 0ms, 0ms, 0ms;
+	-ms-transition-delay: 0ms, 0ms, 0ms;
+	transition-delay: 0ms, 0ms, 0ms;
+}
 
-
-/************/
-/** FOOTER **/
-/************/
-
-footer {
-	
+.build-menu-open #build-menu,
+.build-menu-close #build-menu {
+	-webkit-transition: -webkit-transform 250ms, opacity 250ms, visibility 0ms 250ms;
+	-moz-transition: -moz-transform 250ms, opacity 250ms, visibility 0ms 250ms;
+	-o-transition: -o-transform 250ms, opacity 250ms, visibility 0ms 250ms;
+	-ms-transition: -ms-transform 250ms, opacity 250ms, visibility 0ms 250ms;
+	transition: transform 250ms, opacity 250ms, visibility 0ms 250ms;
+}
+#build-menu-button {
+	background-color: #13292d;
+	padding: 40px 20px 10px 20px;
+	top: 50px;
+}
+#build-menu-button img {
+	margin-top: 15px;
 }

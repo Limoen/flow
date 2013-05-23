@@ -11,9 +11,7 @@ if(isset($_SESSION["name"])){
 	if(mysqli_num_rows($q_user) != 1){
 		header("Location: login.php");
 	}
-}
-else
-{
+} else {
 	header("Location: login.php");
 }
 ?>

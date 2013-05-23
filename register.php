@@ -10,9 +10,15 @@
 					
 			
 			if($user->UsernameAvailable()) {
-				$user->CreateUsername(); //INSERT USER INTO TABLE
-				$feedback = "Thanks for signing up!";
-				
+				$pass1 = $_POST['inp_password_name'];
+				$pass2 = $_POST['check_password'];
+				if( $pass1 == $pass2) {
+					$user->CreateUsername(); //INSERT USER INTO TABLE
+					$feedback = "Thanks for signing up!";
+					header("Location: login.php");
+				} else {
+					$feedback = "Check password";
+				};
 			} else {
 				$feedback = "Sorry, username already taken";	
 			};
@@ -42,11 +48,13 @@
 
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
+/*		
 		$(document).ready(function(){
+
 			$("#inp_user_id").keyup(function(){
 				//console.log($(this).val());
-				// toon feedback
-				$(".usernameFeedback").fadeIn();
+				//toon feedback
+				$(".userfeed").fadeIn();
 				
 				var username = $(this).val();
 				$.ajax({
@@ -55,53 +63,73 @@
 		  			data: { username:username }
 				}).done(function( msg ) {
 					// verberg load idicator
-					$("#loadingImage").hide();
+					// $("#loadingImage").hide();
 		  			if(msg.status != "error"){
 		  				if(msg.exists == "no"){
 		  					// username is vrij !
-		  					$(".usernameFeedback span").removeClass("notok");
-		  					$(".usernameFeedback span").addClass("ok");
+		  					$("#userfeed").attr("src", $(this).attr("src").replace('-empty', '-avail'));
+							$("#userfeed").attr("src", $(this).attr("src").replace('-unavail', '-avail'));
 		  				}else
 		  				{
-		  					$(".usernameFeedback span").removeClass("ok");
-		  					$(".usernameFeedback span").addClass("notok");
+		  					$("#userfeed").attr("src", $(this).attr("src").replace('-empty', '-unavail'));
+							$("#userfeed").attr("src", $(this).attr("src").replace('-avail', '-unavail'));
 		  				}
-		  				$(".usernameFeedback span").text(msg.message);
 		  			};  
 				});
 			});
-		});
+*/
+			
+		function checkPass(){
+			var pass1 = document.getElementById('pass1');
+			var pass2 = document.getElementById('pass2');
+			var goodColor = "#20bbbb";
+			var badColor = "#ba2222";
+			
+			if(pass1.value == pass2.value){
+				pass2.style.border = "3px solid";
+				pass2.style.borderColor = goodColor;
+				pass2.style.width = "234px";
+			} else {
+				pass2.style.border = "3px solid";
+				pass2.style.borderColor = badColor;
+				pass2.style.width = "234px";
+			}
+		}
 	</script>
 </head>
 
 <body>
 	<img src="images/city.jpg" alt="achtergrond" class="bg"/>
 	<div id="register_page">
-		<header></header>
-
 <!--
 		<?php //if (isset($feedback)): ?>
-		<div class="feedback">
-			<?php //echo $feedback; ?>
-		</div>
+            <div class="feedback">
+                <?php //echo $feedback; ?>
+            </div>
 		<?php //endif;?>
 -->
-
 		<div id="register">
 			<img src="images/logo.png" alt="logo" id="register_logo"/>
 			<form id="form_id" action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" enctype="application/x-www-form-urlencoded">
-		    	<input type="text" name="inp_user_name" value="username" onfocus="if(this.value=='username')this.value='';" onblur="if(this.value=='')this.value='username';"/><br />
+		    	
+                <input type="text" id="inp_user_id" name="inp_user_name" value="username" onfocus="if(this.value=='username')this.value='';" onblur="if(this.value=='')this.value='username';"/>
+                
 <!--
-		    	<div class="usernameFeedback"><img id="loadingImage" src="images/loading.gif" /><span>Checking username</span></div><br /><br/>
+                <div id="userfeed">
+                	<img src="" alt="checking" id="loadingimage"/>
+                </div>
 -->
-		       	<input type="password" name="inp_password_name" value="password" onfocus="if(this.value=='password')this.value='';" onblur="if(this.value=='')this.value='password';"/>
+
+				<input type="email" name="inp_email_name" value="e-mail" onfocus="if(this.value=='e-mail')this.value='';" onblur="if(this.value=='')this.value='e-mail';"/>
+				
+		       	<input type="password" name="inp_password_name" id="pass1" placeholder="password"/>
+
+                <input type="password" name="check_password" id="pass2" onkeyup="checkPass(); return false;" placeholder="repeat password"/>
 		       	
-		       	<input type="email" name="inp_email_name" value="e-mail" onfocus="if(this.value=='e-mail')this.value='';" onblur="if(this.value=='')this.value='e-mail';"/>
-		        
-		        <input type="submit" name="btn_register_name" id="register_btn" value=""/>
+		        <input type="submit" name="btn_register_name" id="register_btn" value="CREATE ACCOUNT"/>
 			</form>
 			
-			<a href="login.php">Already registered?</a>
+			<a href="#" ontouchstart="window.location.href='login.php'">Already registered?</a>
 		</div>
 	</div>
 </body>
