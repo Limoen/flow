@@ -108,9 +108,6 @@ nav {
 	width: 260px;
 	margin: 300px 0 0 70px;	
 }
-.fade2 {
-	margin: 300px 0 30px 120px;
-}
 
 /***********/
 /** Login **/
@@ -122,7 +119,7 @@ nav {
 	margin: 0 auto;
 }
 
-.testfeedback {
+.logfeedback {
 	position: relative;
 	margin: 0 auto;
 	width: 380px;
@@ -173,6 +170,11 @@ nav {
 #login_btn:hover {
 	color: #FFF;
 }
+#index_logo {
+	margin: 300px 0 30px 48px;
+	width:160px;
+	display: none;
+}
 #login_logo {
 	margin: 220px 0 30px 48px;
 	width:160px;
@@ -192,6 +194,7 @@ nav {
 #reg_btn:hover {
 	color: #FFF;
 }
+
 /**************/
 /** Register **/
 /**************/
@@ -232,6 +235,80 @@ nav {
 
 .userfeed {
 	position: relative;
+}
+
+.regfeedback {
+	position: relative;
+	margin: 0 auto;
+	width: 380px;
+	float: right;
+	margin-top: 430px;
+}
+
+.rfb {
+	position: absolute;
+    background-color: rgba(0, 183, 186, 0.4);
+    width: 120px;
+	padding: 15px 20px 18px 0px;
+	left: 35px;
+	color: #FFF;
+	font-weight: 300;
+    -webkit-border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.rfb:before {
+   content:"";
+   position: absolute;
+   width: 0;
+   height: 0;
+   border-top: 25px solid transparent;
+   border-right: 35px solid rgba(0, 183, 186, 0.4);
+   border-bottom: 24px solid transparent;
+   margin: -15px 10px 0 -35px;
+}
+#fb_un {
+	
+}
+#fb_pw {
+	
+}
+
+/**************/
+/** Greeting **/
+/**************/
+
+#greet_logo {
+	position: relative;
+	width: 160px;
+	margin: 220px auto 50px auto;
+}
+#greet_logo img {
+	width: 160px;
+}
+#greet {
+	position: relative;
+	width: 400px;
+	margin: 0 auto;
+	background-color: rgba(137, 153, 152, 0.2);
+	height: 75px;
+}
+.makeitfloatleft {
+	float: left;
+}
+.makeitfloatright {
+	float: right
+}
+#greet img {
+	height: 75px;
+}
+#greet h1{
+	color: #FFF;
+	font-size: 24pt;
+	margin: 20px 100px 0 30px;
 }
 
 /*************/

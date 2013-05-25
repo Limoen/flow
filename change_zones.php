@@ -1,12 +1,8 @@
 <?php
 
-$currentPage = 'zones';
+$currentPage = 'change_zones';
 
 session_start();
-
-if (!isset($_SESSION['user_id'])) {
-	//	header("location: login.php");
-}
 
 try {
 	include_once ("classes/Zone.class.php");
@@ -61,11 +57,12 @@ try {
 			<!--ZONES-->
 
 			<?php
-
+			$zones = array();
 			if (isset($zone)) {
 				while ($temp = $userzones -> fetch_assoc()) {
-					echo "<p id='my_zone'>" . $temp['zone_name'] . "</p>";
+					$zones[] = $temp['zone_id'];
 				}
+
 			}
 			?>
 			<div id="zones_change">
@@ -183,384 +180,415 @@ try {
 	</body>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script type="text/javascript">
-		var my_zone = document.getElementById("my_zone").innerHTML;
+	
+	
+	var my_zone = document.getElementById("my_zone").innerHTML;
 
-		if (my_zone == "Astronomy") {
+	if (my_zone == "Astronomy") {
+		$('.zone_change_green').css({
+			"background-color" : "#32D080",
+			"opacity" : "0.7"
+
+		});
+	}
+
+	if (my_zone == "Business") {
+		$('.zone_change_green2').css({
+			"background-color" : "#32D080",
+			"opacity" : "0.7"
+
+		});
+	}
+
+	//var my_zones = document.getElementsByClassName("my_zone").innerHTML;
+
+	/*for (var i = 0; i < my_zones.length; i++) {
+	 if (my_zones[i] == "Astronomy") {
+	 $('.zone_change_green').css({
+	 "background-color" : "#32D080",
+	 "opacity" : "0.7"
+
+	 });
+	 }
+
+	 if (my_zones[i] == "Gaming") {
+	 $('.zone_change_green2').css({
+	 "background-color" : "#32D080",
+	 "opacity" : "0.7"
+
+	 });
+	 }
+	 }
+	 */
+	/*for (var i = 0; i < my_zones.length; i++) {
+	 alert(my_zones[i]);
+	 if (my_zones[i].indexOf("Astronomy") != -1) {
+	 $('.zone_change_green').css({
+	 "background-color" : "#32D080",
+	 "opacity" : "0.7"
+
+	 });
+	 }
+	 if (my_zones[i].indexOf("Gaming") != -1) {
+	 $('.zone_change_green2').css({
+	 "background-color" : "#32D080",
+	 "opacity" : "0.7"
+
+	 });
+	 }
+
+	 }*/
+
+	function touchAstro(e) {
+
+		var green_layer = document.getElementById("zone_change_green");
+
+		if (green_layer.style.background == "none") {
+
 			$('.zone_change_green').css({
 				"background-color" : "#32D080",
 				"opacity" : "0.7"
 
 			});
+			var zone_id = 1;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
+
+		} else {
+			$('.zone_change_green').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+
+			var zone_id = 1;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
+
 		}
 
-		if (my_zone == "Business") {
+	}
+
+	function touchBusiness(e) {
+
+		var green_layer = document.getElementById("zone_change_green2");
+
+		if (green_layer.style.background == "none") {
+
 			$('.zone_change_green2').css({
 				"background-color" : "#32D080",
 				"opacity" : "0.7"
 
 			});
-		}
 
-		//var my_zones = document.getElementsByClassName("my_zone").innerHTML;
+			var zone_id = 2;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-		/*for (var i = 0; i < my_zones.length; i++) {
-		 if (my_zones[i] == "Astronomy") {
-		 $('.zone_change_green').css({
-		 "background-color" : "#32D080",
-		 "opacity" : "0.7"
-
-		 });
-		 }
-
-		 if (my_zones[i] == "Gaming") {
-		 $('.zone_change_green2').css({
-		 "background-color" : "#32D080",
-		 "opacity" : "0.7"
-
-		 });
-		 }
-		 }
-		 */
-		/*for (var i = 0; i < my_zones.length; i++) {
-		 alert(my_zones[i]);
-		 if (my_zones[i].indexOf("Astronomy") != -1) {
-		 $('.zone_change_green').css({
-		 "background-color" : "#32D080",
-		 "opacity" : "0.7"
-
-		 });
-		 }
-		 if (my_zones[i].indexOf("Gaming") != -1) {
-		 $('.zone_change_green2').css({
-		 "background-color" : "#32D080",
-		 "opacity" : "0.7"
-
-		 });
-		 }
-
-		 }*/
-
-		function touchAstro(e) {
-
-			var green_layer = document.getElementById("zone_change_green");
-
-			if (green_layer.style.background == "none") {
-
-				$('.zone_change_green').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
-
-				});
-				var zone_id = 1;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
-
-			} else {
-				$('.zone_change_green').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-
-				var zone_id = 1;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-
-			}
+		} else {
+			$('.zone_change_green2').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 2;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 
 		}
+	}
 
-		function touchBusiness(e) {
+	function touchDesign(e) {
 
-			var green_layer = document.getElementById("zone_change_green2");
+		var green_layer = document.getElementById("zone_change_green3");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green2').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green3').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 2;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 3;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green2').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 2;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-
-			}
+		} else {
+			$('.zone_change_green3').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 3;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchDesign(e) {
+	function touchFashion(e) {
 
-			var green_layer = document.getElementById("zone_change_green3");
+		var green_layer = document.getElementById("zone_change_green4");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green3').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green4').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 3;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 4;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green3').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 3;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green4').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 4;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchFashion(e) {
+	function touchLifestyle(e) {
 
-			var green_layer = document.getElementById("zone_change_green4");
+		var green_layer = document.getElementById("zone_change_green5");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green4').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green5').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 4;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 5;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green4').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 4;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green5').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 5;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchLifestyle(e) {
+	function touchFilm(e) {
 
-			var green_layer = document.getElementById("zone_change_green5");
+		var green_layer = document.getElementById("zone_change_green6");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green5').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green6').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 5;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 6;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green5').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 5;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green6').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 6;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchFood(e) {
+	function touchFood(e) {
 
-			var green_layer = document.getElementById("zone_change_green7");
+		var green_layer = document.getElementById("zone_change_green7");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green7').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green7').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 7;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 7;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green7').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 7;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green7').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 7;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchGaming(e) {
+	function touchGaming(e) {
 
-			var green_layer = document.getElementById("zone_change_green8");
+		var green_layer = document.getElementById("zone_change_green8");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green8').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green8').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 8;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 8;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green8').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 8;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green8').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 8;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchMusic(e) {
+	function touchMusic(e) {
 
-			var green_layer = document.getElementById("zone_change_green9");
+		var green_layer = document.getElementById("zone_change_green9");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green9').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green9').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 9;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 9;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green9').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 9;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green9').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 9;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchScience(e) {
+	function touchScience(e) {
 
-			var green_layer = document.getElementById("zone_change_green10");
+		var green_layer = document.getElementById("zone_change_green10");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green10').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green10').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 10;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 10;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green10').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 10;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green10').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 10;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchSports(e) {
+	function touchSports(e) {
 
-			var green_layer = document.getElementById("zone_change_green11");
+		var green_layer = document.getElementById("zone_change_green11");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green11').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green11').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 11;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 11;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green11').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 11;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green11').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 11;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
-		function touchTechnology(e) {
+	function touchTechnology(e) {
 
-			var green_layer = document.getElementById("zone_change_green12");
+		var green_layer = document.getElementById("zone_change_green12");
 
-			if (green_layer.style.background == "none") {
+		if (green_layer.style.background == "none") {
 
-				$('.zone_change_green12').css({
-					"background-color" : "#32D080",
-					"opacity" : "0.7"
+			$('.zone_change_green12').css({
+				"background-color" : "#32D080",
+				"opacity" : "0.7"
 
-				});
+			});
 
-				var zone_id = 12;
-				$.post('update_zones.php', {
-					variable : zone_id
-				});
+			var zone_id = 12;
+			$.post('update_zones.php', {
+				variable : zone_id
+			});
 
-			} else {
-				$('.zone_change_green12').css({
-					"background" : "none",
-					"opacity" : "0"
-				});
-				var zone_id = 12;
-				$.post('delete_zones.php', {
-					variable : zone_id
-				});
-			}
+		} else {
+			$('.zone_change_green12').css({
+				"background" : "none",
+				"opacity" : "0"
+			});
+			var zone_id = 12;
+			$.post('delete_zones.php', {
+				variable : zone_id
+			});
 		}
+	}
 
 	</script>
 </html>

@@ -4,10 +4,6 @@ $currentPage = 'zones';
 
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-	//	header("location: login.php");
-}
-
 try {
 	include_once ("classes/Zone.class.php");
 	include_once ("classes/User.class.php");
@@ -89,40 +85,25 @@ try {
 		<?php
 		if (isset($zone)) {
 			while ($temp = $userzones -> fetch_assoc()) {
-				echo "<div class='zone' id='zone'>";
-				echo "<img src='" . $temp['zone_image'] . "' class='zone_image' />";
+				echo "<div class='zone' id='zone' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" >";
+				echo "<img src='images/z1.jpg' class='zone_image' />";
 				echo "<img src='images/testimg.jpg' class='zone_image2' />";
 				echo "<img src='images/testimg.jpg' class='zone_image2' />";
 				echo "<img src='images/testimg.jpg' class='zone_image2' />";
 				echo "<img src='images/line_horizontal.png' class='line_horizontal' />";
 				echo "<h1 class='zone_title'>" . $temp['zone_name'] . "</h1>";
-				echo "<div class='zone_bg'></div>";
+				echo "<div class='zone_bg' style='background-color:" . $temp['zone_color'] . "'></div>";
 				echo "</div>";
 				echo "<div class='zone_bg_reading'></div>";
 			}
 		}
 		?>
-	</div>
+		</div>
 
-	<!--END ZONES-->
+		<!--END ZONES-->
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
-	//Change colors of zones
-	/*var title = document.getElementsByClass("zone_title");
-
-	 for (var i = 0; i < title.length; i++) {
-	 if (title.innerHTML == "Astronomy") {
-
-	 title[i].style.color = "#806592";
-	 }
-	 }*/
-
-	function goToZone(e) {
-		window.location.href = zone + ".php";
-
-	}
-
 	var main_btn = document.getElementById("main_btn");
 
 	function toggleMenu(e) {
@@ -311,6 +292,26 @@ try {
 			"margin-top" : "50px",
 			"margin-left" : "200",
 			"width" : "251px"
+
+		});
+
+		$('.zone_image').css({
+			"width" : "250px",
+			"height" : "170px",
+			"visibility" : "hidden"
+		});
+		$('.zone_bg_reading').css({
+			"display" : "inline"
+		});
+
+		$('.zone_image2').css({
+			"display" : "none"
+		});
+
+	}
+</script>
+</html>
+"
 
 		});
 

@@ -1,10 +1,10 @@
 <?php
-/*	if (isset($_SESSION['id'])) {
-		header('Refresh: 4; url=http://flowapp.be/beta/zones.php');
+	if (isset($_SESSION['id'])) {
+		header('Refresh: 5; url=http://flowapp.be/beta/zones.php');
 	} else {
-		header('Refresh: 4; url=http://flowapp.be/beta/login.php');
+		header('Refresh: 5; url=http://flowapp.be/beta/login.php');
 	}
-*/
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,49 +22,64 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link href='http://fonts.googleapis.com/css?family=Dosis:200|Roboto:100,300,400' rel='stylesheet' type='text/css'>
 
-		<title>Flow | Motion Magazine</title>
+		<title>Flow | A magazine for every reader</title>
 
 		<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
 		<script src="js/jquery.mobile-menu.js"></script>
 		<script>
-			$(function(){
-				$("body").mobile_menu({
+			$(document).ready(function(){
+
+				/* MENU BAR */
+/*				$("body").mobile_menu({
 					menu: ['#main-nav ul'],
 					menu_width: 260,
 					prepend_button_to: '#mobile-bar'
 				});
-
+*/
 				setTimeout(function(){
 					$(".fade1").fadeOut("1000", function () {
 						$(".fade1").remove();
 					});
 				}, 2000);
 				setTimeout(function(){
-					$(".fade2").fadeIn("slow");
-				}, 3000);
-				setTimeout(function(){
 					$(".fade3").fadeIn("slow");
 				}, 2500);
+
+				setTimeout(function(){
+					$("#index_logo").fadeIn("slow");
+				}, 3500);
+				setTimeout(function(){
+					$("#index_logo").animate({marginTop:'220px'});
+				}, 4000);
+
+				setTimeout(function(){
+					$("#login_form").fadeIn("slow");
+				}, 4500);
 			});
 		</script>
 	</head>
 	<body>
-
 		<img src="images/city.jpg" alt="background" class="bg testfade fade3"/>
-
-		<header>
-			<nav id="mobile-bar"></nav>
-			<nav id="main-nav">
-				<ul>
-					<li><a href="change_zones.php"><img src="images/chzone.png" alt="change zones" /><br/>change zones</a></li>
-					<li><a href="account_settings.php"><img src="images/accset.png" alt="account settings" /><br/>account settings</a></a></li>
-				</ul>
-			</nav>
-		</header>
-
+        
         <div id="start_page">
         	<img src="images/test.gif" alt="load" class="fade1"/>
-	        <img src="images/logo_blue.png" alt="logo" class="testfade fade2" onclick="window.location.href='login.php'"/>
+        </div>
+
+        <div id="login_page">
+        	<div id="login">
+				<img src="images/logo.png" alt="logo" id="index_logo"/>
+
+				<form id="login_form" style="display: none;" action="" method="post" enctype="application/x-www-form-urlencoded">
+					<input type="text" name="user" value="email" onfocus="if(this.value=='email')this.value='';" onblur="if(this.value=='')this.value='email';"/>
+					
+					<input type="password" name="pass" value="password" onfocus="if(this.value=='password')this.value='';" onblur="if(this.value=='')this.value='password';"/>
+					
+					<a href="#" id="reg_btn" ontouchstart="window.location.href='register.php'">REGISTER</a>
+					
+	                <input type="submit" name="submitlogin" value="LOG IN" id="login_btn"/>
+				</form>
+
+			</div>
         </div>
 	</body>
 </html>

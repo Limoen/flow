@@ -102,5 +102,20 @@ class Zone {
 		mysqli_close($link);
 	}
 
+	public function getZoneById($p_iZoneID) {
+		include ("Connection.php");
+		$sSql = "SELECT zone_name FROM tblZones
+				WHERE zone_id = " . $p_iZoneID;
+
+		$rResult = mysqli_query($link, $sSql);
+		if (!$rResult) {
+			throw new Exception("Sorry, couldn't fetch zone name.");
+
+		} else {
+			return $rResult;
+		}
+		mysqli_close($link);
+	}
+
 }
 ?>

@@ -1,4 +1,16 @@
 <?php
+/*
+$cookie_path = "/";
+$cookie_timeout = 60 * 30; // in seconds
+$garbage_timeout = $cookie_timeout + 600; // in seconds
+session_set_cookie_params($cookie_timeout, $cookie_path);
+ini_set('session.gc_maxlifetime', $garbage_timeout);
+strstr(strtoupper(substr($_SERVER["OS"], 0, 3)), "WIN") ? 
+    $sep = "\\" : $sep = "/";
+$sessdir = ini_get('session.save_path').$sep."my_sessions";
+if (!is_dir($sessdir)) { mkdir($sessdir, 0777); }
+ini_set('session.save_path', $sessdir);
+*/
 session_start();
 
 $feedback="";
@@ -21,7 +33,7 @@ if(isset($_POST['submitlogin'])){
 	  	if($password == $data['user_password']) { 
 	   		$_SESSION["name"] = $username;
 			$_SESSION["id"] = $userid;
-	   		header("Location: zones.php");
+	   		header("Location: greeting.php");
 	  	} else {
    			$feedback = 'wrong password';
   		}
@@ -71,26 +83,25 @@ if(isset($_POST['submitlogin'])){
 <body>
 	<img src="images/city.jpg" alt="achtergrond" class="bg"/>
     
-    <div class="testfeedback">
+    <div class="logfeedback">
         <div id="feedback_login"><?php echo $feedback ?></div>
     </div>
     
 	<div id="login_page">
-		<div id="login">
-			<img src="images/logo.png" alt="logo" id="login_logo"/>
+        <div id="login">
+            <img src="images/logo.png" alt="logo" id="login_logo"/>
 
-			<form id="login_form" action="" method="post" enctype="application/x-www-form-urlencoded">
-				<input type="text" name="user" value="email" onfocus="if(this.value=='email')this.value='';" onblur="if(this.value=='')this.value='email';"/>
-				
-				<input type="password" name="pass" value="password" onfocus="if(this.value=='password')this.value='';" onblur="if(this.value=='')this.value='password';"/>
-				
-				<a href="#" id="reg_btn" ontouchstart="window.location.href='register.php'">REGISTER</a>
-				
+            <form id="login_form" action="" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="text" name="user" value="email" onfocus="if(this.value=='email')this.value='';" onblur="if(this.value=='')this.value='email';"/>
+                
+                <input type="password" name="pass" placeholder="password" />
+                
+                <a href="#" id="reg_btn" ontouchstart="window.location.href='register.php'">REGISTER</a>
+                
                 <input type="submit" name="submitlogin" value="LOG IN" id="login_btn"/>
-			</form>
+            </form>
 
-		</div>
-        
+        </div>
     </div>
 </body>
 </html>
