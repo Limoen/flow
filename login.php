@@ -100,7 +100,7 @@ if(isset($_POST['submitlogin'])){
                 
                 <input type="submit" name="submitlogin" value="LOG IN" id="login_btn"/>
             </form>
-
+		<a href="#" ontouchstart="window.location.href='forgot.php'" id="forgot">Forgot your password?</a>
         </div>
     </div>
 </body>

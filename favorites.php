@@ -32,7 +32,7 @@ try {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 		<link id= "css" rel="stylesheet" type="text/css" href="css/style2.css" />
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,700' rel='stylesheet' type='text/css'>
-		<title>Zone</title>
+		<title>Favorites</title>
 			<style>
 				.articles {
 					width: 570px;
@@ -152,7 +152,7 @@ try {
 
 				</div>
 				<div class="title" id="zone_title">
-					<p id="zone_t"><?=$temp['zone_name'] ?></p>
+					<p id="zone_t">SAVED</p>
 				</div>
 			</header>
 
@@ -193,7 +193,7 @@ try {
 			
 	<?php
 
-	parserSide("http://news.yahoo.com/rss/tech");
+	parserSide("http://news.yahoo.com/rss/gaming");
 	function parserSide($feedURL) {
 		$rss = simplexml_load_file($feedURL);
 
@@ -246,7 +246,7 @@ try {
 
 		//COLOR POSITION
 
-		var zone_color =                                                                 
+		var zone_color =                                                               
 <?php echo json_encode($zone_color); ?>
 	;
 
@@ -1004,20 +1004,6 @@ try {
 			"overflow" : "hidden"
 		});
 
-		$('.main_btn').css({
-			"position" : "fixed",
-			"overflow" : "hidden"
-		});
-
-		$('.scanning').css({
-			"position" : "fixed",
-			"overflow" : "hidden"
-		});
-
-		$('#interaction_modes').css({
-			"position" : "fixed"
-		});
-		
 		$('body').css({
 			"background" : "url('images/bg.jpg') repeat"
 		});
@@ -1025,11 +1011,6 @@ try {
 		$('.scanning').css({
 			"padding-top" : "90px"
 		});
-		
-		$('#all_articles').css({
-			"margin-left" : "80px"
-		});
-		
 
 	}
 

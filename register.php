@@ -17,10 +17,10 @@
 					$user->CreateUsername(); //INSERT USER INTO TABLE
 					header("Location: login.php");
 				} else {
-					$feedback_pw = "check password";
+					//$feedback = "check password";
 				};
 			} else {
-				$feedback_un = "username taken";	
+				$feedback = "username taken";	
 			};
 				
 		} catch (Exception $e) {
@@ -76,17 +76,11 @@
 				};  
 			});
 			*/
-			/*
-			var fbun = document.getElementById("fb_un");
-			var fbpw = document.getElementById("fb_pw");
 			
-			if(!fbun.hasChildNodes()) {
-				fbun.style.display='none'
+			var fb = document.getElementById("regfeedback");
+			if(!fb.hasChildNodes()) {
+				fb.style.display='none'
 			};
-			if(!fbpw.hasChildNodes()) {
-				fbpw.style.display='none'
-			};
-			*/
 		});
 			
 		function checkPass(){
@@ -112,8 +106,7 @@
 	<img src="images/city.jpg" alt="achtergrond" class="bg"/>
     
     <div class="regfeedback">
-        <div class="rfb" id="fb_un"><?php echo $feedback_un ?></div>
- <!--       <div class="rfb" id="fb_pw"><?php //echo $feedback_pw ?></div>-->
+        <div class="rfb" id="regfeedback"><?php echo $feedback ?></div>
     </div>
 
 	<div id="register_page">
@@ -137,6 +130,13 @@
                 <input type="password" name="check_password" id="pass2" onkeyup="checkPass(); return false;" placeholder="repeat password"/>
 		       	
 		        <input type="submit" name="btn_register_name" id="register_btn" value="CREATE ACCOUNT"/>
+			</form>
+			
+			<a href="#" ontouchstart="window.location.href='login.php'">Already registered?</a>
+		</div>
+	</div>
+</body>
+</html>it" name="btn_register_name" id="register_btn" value="CREATE ACCOUNT"/>
 			</form>
 			
 			<a href="#" ontouchstart="window.location.href='login.php'">Already registered?</a>

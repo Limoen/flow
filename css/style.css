@@ -12,7 +12,8 @@ a {
 	text-decoration: none;
 }
 h1 {
-	
+	font-family: 'Roboto', Helvetica, sans-serif;
+	font-weight: 300;
 }
 h2 {
 	
@@ -58,6 +59,12 @@ form {
 }
 :-ms-input-placeholder {  
    color: #FFF;  
+}
+::selection {
+	background: #20bbbb; /* Safari */
+	}
+::-moz-selection {
+	background: #20bbbb; /* Firefox */
 }
 
 /****************/
@@ -154,13 +161,14 @@ nav {
 }
 
 #login_btn {
-	background-color: #0a2429;
+	background-color: rgba(19, 41, 45, 0.70);
 	color: #FFF;
 	width: 120px;
 	font-size: 14pt;
 	font-weight: light;
 	margin: 0;
 	margin-left: 12px;
+	margin-bottom: 10px;
 	padding: 13px 15px 14px 15px;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -182,7 +190,7 @@ nav {
 
 #reg_btn {
 	padding: 15px 17px;
-	background-color: #0a2429;
+	background-color: rgba(19, 41, 45, 0.70);
 	color: #FFF;
 	font-size: 15pt;
 	font-weight: 400;
@@ -193,6 +201,11 @@ nav {
 }
 #reg_btn:hover {
 	color: #FFF;
+}
+a#forgot{
+	margin-left: 55px;
+	color: #FFF;
+	font-weight: 300;
 }
 
 /**************/
@@ -212,7 +225,7 @@ nav {
 }
 
 #register_btn {
-	background-color: #0a2429;
+	background-color: rgba(19, 41, 45, 0.70);
 	color: #FFF;
 	width: 260px;
 	height: 49px;
@@ -242,7 +255,7 @@ nav {
 	margin: 0 auto;
 	width: 380px;
 	float: right;
-	margin-top: 430px;
+	margin-top: 295px;
 }
 
 .rfb {
@@ -269,12 +282,6 @@ nav {
    border-right: 35px solid rgba(0, 183, 186, 0.4);
    border-bottom: 24px solid transparent;
    margin: -15px 10px 0 -35px;
-}
-#fb_un {
-	
-}
-#fb_pw {
-	
 }
 
 /**************/

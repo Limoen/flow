@@ -3,7 +3,7 @@ header('Refresh: 5; url=http://flowapp.be/beta/zones.php');
 
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id'])) {
 	header("location: index.php");
 }
 
@@ -11,8 +11,8 @@ try {
 	include_once ("classes/User.class.php");
 
 	$user = new User();
-	$useravatar = $user -> getUserInfo($_SESSION['id']);
-	$temp = $useravatar -> fetch_assoc();
+	$usergreet = $user -> getUserInfo($_SESSION['id']);
+	$greet = $usergreet -> fetch_assoc();
 
 } catch (Exception $e) {
 	$feedback = $e -> getMessage();
@@ -46,9 +46,10 @@ try {
     	<img src="images/logo.png" alt="logo"/>
     </div>
     <div id="greet">
-        <div class="makeitfloatleft"><h1>Hello, <?php echo $temp['user_name'] ?>!</h1></div>
-        <div class="makeitfloatright"><img src="images/<?=$temp['user_avatar'] ?>" alt="avatar"/></div>
+        <div class="makeitfloatleft"><h1>Hello, <?php echo $greet['user_name'] ?>!</h1></div>
+        <div class="makeitfloatright"><img src="images/<?=$greet['user_avatar'] ?>" alt="avatar"/></div>
     </div>
     </div>
 </body>
 </html>
+ml>

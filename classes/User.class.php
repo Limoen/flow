@@ -78,7 +78,7 @@ class User {
 
 	public function getUserInfo($p_sUserId) {
 		include ("Connection.php");
-		$sSql = "SELECT user_id, user_email, user_avatar FROM tblUsers
+		$sSql = "SELECT user_id, user_name, user_email, user_avatar FROM tblUsers
 				WHERE user_id = " . $p_sUserId;
 		$rResult = mysqli_query($link, $sSql);
 		if (!$rResult) {

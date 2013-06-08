@@ -22,6 +22,7 @@ try {
 
 }
 ?><!DOCTYPE html>
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +32,7 @@ try {
 		<meta name="author" content="Sonny Willems" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 		<link id= "css" rel="stylesheet" type="text/css" href="css/style2.css" />
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'>
 		<title>Zone</title>
 			<style>
 				.articles {
@@ -53,7 +54,7 @@ try {
 
 				.article_title {
 					font-size: 22px;
-					width: 300px;
+					width: 350px;
 					padding-left: 240px;
 					margin-top: -122px;
 					position: relative;
@@ -65,7 +66,7 @@ try {
 					width: 357px;
 					height: 150px;
 					margin-top: -133px;
-					margin-left: 220px;
+					margin-left: 210px;
 				}
 
 				#all_articles {
@@ -92,40 +93,10 @@ try {
 					height: 150px;
 					position: relative;
 					z-index: 51;
-					margin-left: 567px;
-					margin-top: -150px;
+					margin-left:565px;
+					margin-top:-150px;
 				}
 
-				.content_reading {
-					visibility: hidden;
-				}
-
-				.reading_text {
-					visibility: hidden;
-				}
-				.image_reading {
-					visibility: hidden;
-				}
-
-				.reading_footer {
-					visibility: hidden;
-				}
-
-				.facebook_bg {
-					visibility: hidden;
-				}
-
-				.facebook {
-					visibility: hidden;
-				}
-
-				.twitter_bg {
-					visibility: hidden;
-				}
-
-				.twitter {
-					visibility: hidden;
-				}
 		</style>
 	</head>
 
@@ -193,7 +164,7 @@ try {
 			
 	<?php
 
-	parserSide("http://news.yahoo.com/rss/tech");
+	parserSide("http://feeds.mashable.com/Mashable");
 	function parserSide($feedURL) {
 		$rss = simplexml_load_file($feedURL);
 
@@ -203,20 +174,11 @@ try {
 			$i++;
 			echo "<div class='articles' id='article' style=\"background: url('http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg') no-repeat;\">\n";
 			echo "<img class='image_scanning' src='http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg' />";
-			echo "<h1 class='article_title' id='article_title'>" . $feedItem -> title . "</h1>";
+			echo "<h1 class='article_title'>" . $feedItem -> title . "</h1>";
 			echo "<div class='title_bg'></div>";
 			echo "<div class='article_side'></div>";
-			echo "<div class='content_reading'>";
-			echo "<div class='reading_text'>" . $feedItem -> description . "</div>";
-			echo "<img class='image_reading' src='http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg' />";
-			echo "<p class='reading_footer'>" . $feedItem -> source . " | " . $feedItem -> pubDate . "</p>";
-			echo "<img class='facebook' src='images/facebook-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
-			echo "<div class='facebook_bg' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
-			echo "<img class='twitter' src='images/twitter-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
-			echo "<div class='twitter_bg' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
 			echo "</div>";
-			echo "</div>";
-			if ($i >= 2)
+			if ($i >= 1)
 				break;
 
 		}
@@ -236,17 +198,9 @@ try {
 	<script type="text/javascript">
 		//window.onload = moveArticles;
 
-		var count = document.getElementById('article_title').innerHTML.split(' ').length;
-
-		if (count <= 9) {
-			$('.title_bg').css({
-				"margin-top" : "-104px"
-			});
-		}
-
 		//COLOR POSITION
 
-		var zone_color =                                                                 
+		var zone_color =                
 <?php echo json_encode($zone_color); ?>
 	;
 
@@ -260,94 +214,15 @@ try {
 		$('.article_side').css({
 			"background-color" : "#C6563E"
 		});
-
-	} else if (zone_t == "Astronomy") {
-		$('.position').css({
-			"background-color" : "#20BBBB"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#20BBBB"
-		});
-	} else if (zone_t == "Business") {
-		$('.position').css({
-			"background-color" : "#87939B"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#87939B"
-		});
-	} else if (zone_t == "Fashion") {
-		$('.position').css({
-			"background-color" : "#AD69C9"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#AD69C9"
-		});
-	} else if (zone_t == "Lifestyle") {
-		$('.position').css({
-			"background-color" : "#E58B41"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#E58B41"
-		});
-	} else if (zone_t == "Film") {
-		$('.position').css({
-			"background-color" : "#20262B"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#20262B"
-		});
-	} else if (zone_t == "Food") {
-		$('.position').css({
-			"background-color" : "#80658A"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#80658A"
-		});
 	} else if (zone_t == "Gaming") {
 		$('.position').css({
 			"background-color" : "#309C71"
 		});
 
 		$('.article_side').css({
-			"background-color" : "#309C71"
-		});
-	} else if (zone_t == "Music") {
-		$('.position').css({
-			"background-color" : "#DDDD3E"
+			"background-color" : "#C6563E"
 		});
 
-		$('.article_side').css({
-			"background-color" : "#DDDD3E"
-		});
-	} else if (zone_t == "Science") {
-		$('.position').css({
-			"background-color" : "#35AABA"
-		});
-		$('.article_side').css({
-			"background-color" : "#35AABA"
-		});
-	} else if (zone_t == "Sports") {
-		$('.position').css({
-			"background-color" : "#B56E3E"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#B56E3E"
-		});
-	} else if (zone_t == "Technology") {
-		$('.position').css({
-			"background-color" : "#3E92C1"
-		});
-
-		$('.article_side').css({
-			"background-color" : "#3E92C1"
-		});
 	}
 
 	//SIZE OF PHOTOS
@@ -397,19 +272,17 @@ try {
 
 		var interaction_modes = document.getElementById("interaction_modes");
 
-		interaction_modes.style.visibility = "visible";
+		if (interaction_modes.style.visibility == "hidden") {
 
-		/*if (interaction_modes.style.visibility == "hidden") {
+			interaction_modes.style.visibility = "visible";
 
-		 interaction_modes.style.visibility = "visible";
+		} else {
+			interaction_modes.style.visibility = "hidden";
 
-		 } else {
-		 interaction_modes.style.visibility = "hidden";
+		}
 
-		 }
-
-		 e.preventDefault();
-		 return false;*/
+		e.preventDefault();
+		return false;
 	}
 
 	function switchToGlancingMode(e) {
@@ -440,45 +313,22 @@ try {
 			"margin-left" : "-83px"
 		});
 
-		var count = document.getElementById('article_title').innerHTML.split(' ').length;
+		$('.article_title').css({
+			"width" : "250px",
+			"font-size" : "13px",
+			"padding-left" : "15px",
+			"padding-top" : "250px",
+			"z-index" : "50"
+		});
 
-		if (count >= 10) {
-			$('.article_title').css({
-				"width" : "250px",
-				"font-size" : "13px",
-				"padding-left" : "15px",
-				"padding-top" : "240px",
-				"z-index" : "50"
-			});
-
-			$('.title_bg').css({
-				"width" : "270px",
-				"height" : "70px",
-				"background-color" : "#13292D",
-				"opacity" : "0.9",
-				"margin-left" : "0px",
-				"margin-top" : "-67px"
-			});
-		} else {
-
-			$('.article_title').css({
-				"width" : "250px",
-				"font-size" : "13px",
-				"padding-left" : "15px",
-				"padding-top" : "250px",
-				"z-index" : "50"
-			});
-
-			$('.title_bg').css({
-				"width" : "270px",
-				"height" : "70px",
-				"background-color" : "#13292D",
-				"opacity" : "0.9",
-				"margin-left" : "0px",
-				"margin-top" : "-57px"
-			});
-
-		}
+		$('.title_bg').css({
+			"width" : "270px",
+			"height" : "70px",
+			"background-color" : "#13292D",
+			"opacity" : "0.9",
+			"margin-left" : "0px",
+			"margin-top" : "-57px"
+		});
 
 		$('.scanning').css({
 			"margin-top" : "295px",
@@ -511,55 +361,11 @@ try {
 		});
 
 		$('.article_side').css({
-			"visibility" : "hidden"
-		});
-
-		$('.content_reading').css({
-			"visibility" : "hidden",
-			"width" : "0px",
-			"height" : "0px"
-		});
-
-		$('.reading_text').css({
-			"visibility" : "hidden",
-			"width" : "0px",
-			"height" : "0px"
-
-		});
-
-		$('.image_reading').css({
-			"visibility" : "hidden",
-			"width" : "0px",
-			"height" : "0px"
-
-		});
-
-		$('.reading_footer').css({
-			"visibility" : "hidden"
-		});
-
-		$('.facebook_bg').css({
-			"visibility" : "hidden"
-
-		});
-
-		$('.facebook').css({
-			"visibility" : "hidden"
-
-		});
-
-		$('.twitter_bg').css({
-			"visibility" : "hidden"
-
-		});
-
-		$('.twitter').css({
-			"visibility" : "hidden"
-
+			"display" : "none"
 		});
 
 		var x = 0, y = 0, vx = 0, vy = 0, ax = 0, ay = 0;
-		var articles = document.getElementById("all_articles");
+		var articles = document.getElementById("article");
 		var position = document.getElementById("position");
 
 		if (window.DeviceMotionEvent != undefined) {
@@ -611,49 +417,6 @@ try {
 			"height" : "200px",
 			"margin:" : "110px 20px 20px 10px",
 			"float:" : "left"
-		});
-
-		$('.articles').css({
-			"width" : "570px",
-			"height" : "150px",
-			"position" : "relative",
-			"margin" : "-38px 0 0 -83px",
-			"float" : "left",
-			"padding-right" : "10px",
-			"backgroundSize" : "100px 180px"
-
-		});
-
-		$('.article_img').css({
-			"width" : "350px",
-			"height" : "230px",
-			"margin-left" : "-83px"
-
-		});
-
-		$('.article_title').css({
-			"width" : "330px",
-			"font-size" : "22px",
-			"padding-left" : "240px",
-			"margin-top" : "-122px",
-			"position" : "relative",
-			"z-index" : "50"
-		});
-
-		$('.title_bg').css({
-			"width" : "357px",
-			"height" : "150px",
-			"background-color" : "#13292D",
-			"margin-left" : "220px",
-			"margin-top" : "-133px"
-		});
-
-		$('.article_side').css({
-			"visibility" : "visible",
-			"width" : "13px",
-			"height" : "150px",
-			"position" : "relative",
-			"z-index" : "51"
 		});
 
 		$('.zone_bg').css({
@@ -712,53 +475,7 @@ try {
 		});
 
 		$('.image_scanning').css({
-			"display" : "inline",
-			"width" : "220px",
-			"height" : "150px"
-		});
-
-		$('.content_reading').css({
-			"visibility" : "hidden",
-			"width" : "0px",
-			"height" : "0px"
-		});
-
-		$('.reading_text').css({
-			"visibility" : "hidden",
-			"width" : "0px",
-			"height" : "0px"
-
-		});
-
-		$('.image_reading').css({
-			"visibility" : "hidden",
-			"width" : "0px",
-			"height" : "0px"
-
-		});
-
-		$('.reading_footer').css({
-			"visibility" : "hidden"
-		});
-
-		$('.facebook_bg').css({
-			"visibility" : "hidden"
-
-		});
-
-		$('.facebook').css({
-			"visibility" : "hidden"
-
-		});
-
-		$('.twitter_bg').css({
-			"visibility" : "hidden"
-
-		});
-
-		$('.twitter').css({
-			"visibility" : "hidden"
-
+			"display" : "inline"
 		});
 
 	}
@@ -774,93 +491,6 @@ try {
 		interaction_modes.style.visibility = "hidden";
 
 		//Change style (without flickering)
-
-		var zone_t = document.getElementById("zone_t").innerHTML;
-
-		if (zone_t == "Design") {
-
-			$('.title_bg').css({
-				"background-color" : "#C6563E"
-			});
-		} else if (zone_t == "Astronomy") {
-			$('.title_bg').css({
-				"background-color" : "#20BBBB"
-			});
-		} else if (zone_t == "Business") {
-			$('.title_bg').css({
-				"background-color" : "#87939B"
-			});
-		} else if (zone_t == "Fashion") {
-			$('.title_bg').css({
-				"background-color" : "#AD69C9"
-			});
-		} else if (zone_t == "Lifestyle") {
-			$('.title_bg').css({
-				"background-color" : "#E58B41"
-			});
-		} else if (zone_t == "Film") {
-			$('.title_bg').css({
-				"background-color" : "#20262B"
-			});
-		} else if (zone_t == "Food") {
-			$('.title_bg').css({
-				"background-color" : "#80658A"
-			});
-		} else if (zone_t == "Gaming") {
-			$('.title_bg').css({
-				"background-color" : "#309C71"
-			});
-		} else if (zone_t == "Music") {
-			$('.title_bg').css({
-				"background-color" : "#DDDD3E"
-			});
-		} else if (zone_t == "Science") {
-			$('.title_bg').css({
-				"background-color" : "#35AABA"
-			});
-		} else if (zone_t == "Sports") {
-			$('.title_bg').css({
-				"background-color" : "#B56E3E"
-			});
-		} else if (zone_t == "Technology") {
-			$('.title_bg').css({
-				"background-color" : "#3E92C1"
-			});
-		}
-
-		$('.articles').css({
-			"width" : "570px",
-			"height" : "600px",
-			"position" : "relative",
-			"float" : "left",
-			"margin-left" : "-83px",
-			"margin-top" : "-38px",
-			"margin-right" : "100px"
-		});
-
-		$('#all_articles').css({
-			"width" : "5000px"
-		});
-
-		$('.content_reading').css({
-			"visibility" : "visible",
-			"width" : "580px",
-			"height" : "518px",
-			"background-color" : "white",
-			"margin-top" : "-20px"
-		});
-
-		$('.reading_text').css({
-			"visibility" : "visible",
-			"width" : "500px",
-			"height" : "400px",
-			"color" : "#13292D",
-			"font-weight" : "300",
-			"font-size" : "15px",
-			"padding" : "20px 0 0 30px",
-			"margin-top" : "20px"
-
-		});
 
 		$('.zone').css({
 			"width" : "250px",
@@ -926,110 +556,8 @@ try {
 		});
 
 		$('.article_side').css({
-			"visibility" : "hidden"
+			"display" : "none"
 		});
-
-		$('.title_bg').css({
-			"width" : "580px",
-			"height" : "150px",
-			"margin-left" : "0px",
-			"margin-top" : "-117px",
-			"position" : "relative",
-		});
-
-		$('.image_reading').css({
-			"visibility" : "hidden",
-			"width" : "220px",
-			"height" : "130px",
-			"margin" : "-450px 0 50px 30px"
-
-		});
-
-		$('.reading_footer').css({
-			"visibility" : "visible",
-			"color" : "#13292D",
-			"font-weight" : "400",
-			"font-size" : "13px",
-			"padding" : "0 0 0 30px"
-		});
-
-		$('.article_title').css({
-			"width" : "530px",
-			"font-size" : "25px",
-			"margin-top" : "35px",
-			"padding-left" : "30px",
-			"position" : "relative",
-			"z-index" : "50"
-		});
-
-		$('.facebook_bg').css({
-			"width" : "80px",
-			"height" : "80px",
-			"background-color" : "#415A83",
-			"visibility" : "visible",
-			"margin" : "-67px 0 0 420px"
-
-		});
-
-		$('.facebook').css({
-			"width" : "45px",
-			"height" : "45px",
-			"visibility" : "visible",
-			"margin" : "-80px 0 0 440px",
-			"padding-bottom" : "0px"
-
-		});
-
-		$('.twitter_bg').css({
-			"width" : "80px",
-			"height" : "80px",
-			"background-color" : "#0089B6",
-			"visibility" : "visible",
-			"margin" : "-101px 0 0 500px"
-
-		});
-
-		$('.twitter').css({
-			"width" : "45px",
-			"height" : "45px",
-			"visibility" : "visible",
-			"margin" : "-101px 0 0 520px",
-			"padding-bottom" : "32px"
-
-		});
-
-		$('header').css({
-			"position" : "fixed",
-			"z-index" : "100",
-			"overflow" : "hidden"
-		});
-
-		$('.main_btn').css({
-			"position" : "fixed",
-			"overflow" : "hidden"
-		});
-
-		$('.scanning').css({
-			"position" : "fixed",
-			"overflow" : "hidden"
-		});
-
-		$('#interaction_modes').css({
-			"position" : "fixed"
-		});
-		
-		$('body').css({
-			"background" : "url('images/bg.jpg') repeat"
-		});
-
-		$('.scanning').css({
-			"padding-top" : "90px"
-		});
-		
-		$('#all_articles').css({
-			"margin-left" : "80px"
-		});
-		
 
 	}
 

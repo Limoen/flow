@@ -19,7 +19,7 @@ try {
 	$feedback = $e -> getMessage();
 }
 ?><!DOCTYPE html>
-	<head>
+<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -30,6 +30,31 @@ try {
 	<link id= "css" rel="stylesheet" type="text/css" href="css/style2.css" />
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'>
 	<title>Zones</title>
+	<style>
+		.all_titles {
+			display: none;
+			position: relative;
+			z-index: 10;
+			margin-top: 110px;
+			margin-left: -800px;
+			float: left;
+			width: 180px;
+		}
+		.article_title_reading {
+			font-size: 13px;
+			font-weight: 200;
+			padding-bottom: 10px;
+			padding-top: 15px;
+		}
+
+		.line_horizontal_reading {
+			z-index: 1;
+			width: 180px;
+			position: absolute;
+			padding-bottom: 10px;
+		}
+
+	</style>
 </head>
 
 <body>
@@ -43,8 +68,8 @@ try {
 			</div>
 			<img src="images/logo_small.png" class="logo_small" />
 
-			<div class="avatar">
-				<img src="images/<?=$temp['user_avatar'] ?>" id="avatar"/>
+			<div class="avatar" ontouchstart="window.location.href='settings.php'">
+				<img src="images/<?=$temp['user_avatar'] ?>" id="avatar" ontouchstart="window.location.href='settings.php'"/>
 			</div>
 			<img src="images/line.png" class="line"/>
 			<div class="settings" ontouchstart="window.location.href='change_zones.php'">
@@ -86,7 +111,7 @@ try {
 		if (isset($zone)) {
 			while ($temp = $userzones -> fetch_assoc()) {
 				echo "<div class='zone' id='zone' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" >";
-				echo "<img src='images/z1.jpg' class='zone_image' />";
+				echo "<img src='images/" . $temp['zone_image'] . "' class='zone_image' />";
 				echo "<img src='images/testimg.jpg' class='zone_image2' />";
 				echo "<img src='images/testimg.jpg' class='zone_image2' />";
 				echo "<img src='images/testimg.jpg' class='zone_image2' />";
@@ -94,16 +119,36 @@ try {
 				echo "<h1 class='zone_title'>" . $temp['zone_name'] . "</h1>";
 				echo "<div class='zone_bg' style='background-color:" . $temp['zone_color'] . "'></div>";
 				echo "</div>";
-				echo "<div class='zone_bg_reading'></div>";
+				echo "<div class='zone_bg_reading' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
 			}
 		}
-		?>
-		</div>
 
-		<!--END ZONES-->
+		parserSide("http://news.yahoo.com/rss/gaming");
+		function parserSide($feedURL) {
+			$rss = simplexml_load_file($feedURL);
+
+			echo "<div id='all_titles' class='all_titles'>";
+			$i = 0;
+			foreach ($rss->channel->item as $feedItem) {
+				$i++;
+				echo "<h1 class='article_title_reading'>" . $feedItem -> title . "</h1>";
+				echo "<img src='images/line_horizontal.png' class='line_horizontal_reading' />";
+
+				if ($i >= 6)
+					break;
+
+			}
+			echo "</div>";
+		}
+		?>
+	</div>
+
+	<!--END ZONES-->
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
+
+
 	var main_btn = document.getElementById("main_btn");
 
 	function toggleMenu(e) {
@@ -112,17 +157,19 @@ try {
 
 		var interaction_modes = document.getElementById("interaction_modes");
 
-		if (interaction_modes.style.visibility == "hidden") {
+		interaction_modes.style.visibility = "visible";
 
-			interaction_modes.style.visibility = "visible";
+		/*if (interaction_modes.style.visibility == "hidden") {
 
-		} else {
-			interaction_modes.style.visibility = "hidden";
+		 interaction_modes.style.visibility = "visible";
 
-		}
+		 } else {
+		 interaction_modes.style.visibility = "hidden";
 
-		e.preventDefault();
-		return false;
+		 }
+
+		 e.preventDefault();
+		 return false;*/
 	}
 
 	function switchToGlancingMode(e) {
@@ -130,6 +177,14 @@ try {
 		//Switch button
 
 		document.getElementById("main_btn2").src = "images/logo_small.png";
+		var mode_id = "glancing";
+		$.post('zone.php', {
+			variable : mode_id
+		});
+
+		/*$.post('zone.php', {
+		variable : mode
+		});*/
 
 		//Hide interaction modes
 
@@ -145,9 +200,9 @@ try {
 		});
 
 		$('.zone_bg').css({
-			"width" : "785px",
+			"width" : "784px",
 			"height" : "70px",
-			"margin-top" : "-72px"
+			"margin-top" : "-74px"
 		});
 
 		$('.scanning').css({
@@ -164,7 +219,7 @@ try {
 		});
 
 		$('.line_horizontal').css({
-			"margin-top" : "132px",
+			"margin-top" : "130px",
 			"margin-left" : "-785px",
 			"width" : "785px",
 			"height" : "1px"
@@ -187,6 +242,10 @@ try {
 			"display" : "none"
 		});
 
+		$('.all_titles').css({
+			"display" : "none"
+		});
+
 		//Change style (with flickering)
 
 		/*document.getElementById('css').href = 'css/style_glancing.css';*/
@@ -198,6 +257,11 @@ try {
 		//Switch button
 
 		document.getElementById("main_btn2").src = "images/scanning.png";
+
+		var mode_id = "scanning";
+		$.post('zone.php', {
+			variable : mode_id
+		});
 
 		//Hide interaction modes
 
@@ -251,6 +315,10 @@ try {
 			"display" : "none"
 		});
 
+		$('.all_titles').css({
+			"display" : "none"
+		});
+
 	}
 
 	function switchToReadingMode(e) {
@@ -258,6 +326,11 @@ try {
 		//Switch button
 
 		document.getElementById("main_btn2").src = "images/reading.png";
+
+		var mode_id = "reading";
+		$.post('zone.php', {
+			variable : mode_id
+		});
 
 		//Hide interaction modes
 
@@ -275,7 +348,7 @@ try {
 		$('.zone_bg').css({
 			"width" : "250px",
 			"height" : "60px",
-			"margin-top" : "-185px"
+			"margin-top" : "-184px"
 		});
 
 		$('.scanning').css({
@@ -290,9 +363,9 @@ try {
 
 		$('.line_horizontal').css({
 			"margin-top" : "50px",
-			"margin-left" : "200",
-			"width" : "251px"
-
+			"margin-left" : "-250px",
+			"width" : "251px",
+			"height" : "1px"
 		});
 
 		$('.zone_image').css({
@@ -301,33 +374,17 @@ try {
 			"visibility" : "hidden"
 		});
 		$('.zone_bg_reading').css({
-			"display" : "inline"
+			"display" : "inline",
+
 		});
 
 		$('.zone_image2').css({
 			"display" : "none"
 		});
 
-	}
-</script>
-</html>
-"
-
+		$('.all_titles').css({
+			"display" : "block"
 		});
-
-		$('.zone_image').css({
-			"width" : "250px",
-			"height" : "170px",
-			"visibility" : "hidden"
-		});
-		$('.zone_bg_reading').css({
-			"display" : "inline"
-		});
-
-		$('.zone_image2').css({
-			"display" : "none"
-		});
-
 	}
 </script>
 </html>
