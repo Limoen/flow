@@ -33,102 +33,7 @@ try {
 		<link id= "css" rel="stylesheet" type="text/css" href="css/style2.css" />
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,700' rel='stylesheet' type='text/css'>
 		<title>Zone</title>
-			<style>
-				.articles {
-					width: 570px;
-					height: 150px;
-					position: relative;
-					float: left;
-					margin-left: -83px;
-					padding-right: 10px;
-					margin-top: -38px;
-					backgroundSize: 100px 180px;
-				}
-
-				.article_img {
-					width: 350px;
-					height: 230px;
-					margin-left: -83px;
-				}
-
-				.article_title {
-					font-size: 22px;
-					width: 300px;
-					padding-left: 240px;
-					margin-top: -122px;
-					position: relative;
-					z-index: 50;
-				}
-
-				.title_bg {
-					background-color: #13292D;
-					width: 357px;
-					height: 150px;
-					margin-top: -133px;
-					margin-left: 220px;
-				}
-
-				#all_articles {
-					position: relative;
-					padding-top: 128px;
-					z-index: -5;
-				}
-
-				.position {
-					width: 100px;
-					height: 10px;
-					position: relative;
-					background-color: #20ACAC;
-					margin-top: 630px;
-				}
-
-				.image_scanning {
-					width: 220px;
-					height: 150px;
-				}
-
-				.article_side {
-					width: 13px;
-					height: 150px;
-					position: relative;
-					z-index: 51;
-					margin-left: 567px;
-					margin-top: -150px;
-				}
-
-				.content_reading {
-					visibility: hidden;
-				}
-
-				.reading_text {
-					visibility: hidden;
-				}
-				.image_reading {
-					visibility: hidden;
-				}
-
-				.reading_footer {
-					visibility: hidden;
-				}
-
-				.facebook_bg {
-					visibility: hidden;
-				}
-
-				.facebook {
-					visibility: hidden;
-				}
-
-				.twitter_bg {
-					visibility: hidden;
-				}
-
-				.twitter {
-					visibility: hidden;
-				}
-		</style>
 	</head>
-
 	<body>
 		<div class="container">
 
@@ -155,13 +60,61 @@ try {
 					<p id="zone_t"><?=$temp['zone_name'] ?></p>
 				</div>
 			</header>
-
-			<!--END NAVIGATION HEADER-->
 			
+			<!--END NAVIGATION HEADER-->
+
+			<!--OPEN ARTICLE-->
+			
+			<img src="images/close.png" class="close_img" ontouchstart="closeArticle(event);"/>
+			<div class="close" ontouchstart="closeArticle(event);"></div>
+				<div class='title_bg_open'>
+															
+			<?php
+			parserSide2("http://news.yahoo.com/rss/gaming");
+			function parserSide2($feedURL) {
+				$rss = simplexml_load_file($feedURL);
+
+				$i = 2;
+				foreach ($rss->channel->item as $feedItem) {
+					$i++;
+					echo "<h1 class='article_title_open' id='article_title' ontouchstart=\"openArticle(event)\">" . $feedItem -> title . "</h1>";
+					echo "<div class='reading_text_open'>" . $feedItem -> description . "</div>";
+
+					if ($i >= 1)
+						break;
+				}
+			}
+		?>						
+				</div>
+			<div class='content_open'>
+									<?php
+									parserSide3("http://news.yahoo.com/rss/gaming");
+									function parserSide3($feedURL) {
+										$rss = simplexml_load_file($feedURL);
+
+										$i = 2;
+										foreach ($rss->channel->item as $feedItem) {
+											$i++;
+											echo "<p class='reading_footer_open'>" . $feedItem -> source . " | " . $feedItem -> pubDate . "</p>";
+											echo "<div class='reading_text_open'>" . $feedItem -> description . "</div>";
+											echo "<img class='facebook_open' src='images/facebook-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
+											echo "<div class='facebook_bg_open' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
+											echo "<img class='twitter_open' src='images/twitter-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
+											echo "<div class='twitter_bg_open' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
+											if ($i >= 1)
+												break;
+										}
+									}
+		?>					
+			</div>
+			<div class="dark_layer"></div>
+			
+			<!--END OPEN ARTICLE-->
+					
 			<!--INTERACTION MODE-->
 
-		<div class="main_btn"  id="main_btn" ontouchstart="toggleMenu(event)"></div>
-		<img src="images/scanning.png" class="scanning" id="main_btn3" ontouchstart="toggleMenu(event)"/>
+		<div class="main_btn"  id="main_btn" ontouchstart="toggleMenu(event);"></div>
+		<img src="images/scanning.png" class="scanning" id="main_btn3" ontouchstart="toggleMenu(event);"/>
 		<div id="interaction_modes">
 			<div class="reading_btn" id="reading_btn" ontouchstart="switchToReadingMode(event);">
 				<img src="images/reading.png" class="reading" id="reading_btn" ontouchstart="switchToReadingMode(event);"/>
@@ -175,25 +128,22 @@ try {
 				<img src="images/logo_small.png" class="glancing" id="glancing_btn" ontouchstart="switchToGlancingMode(event);"/>
 			</div>
 		</div>
-				<div class="lock_btn"  id="lock_btn" ontouchstart="toggleLockGlancing(event)"></div>
-				<img src="images/block_icon.png" class="lock" id="lock_btn2" ontouchstart="toggleLockGlancing(event)"/>
+				<div class="lock_btn"  id="lock_btn" ontouchstart="toggleLockGlancing(event);"></div>
+				<img src="images/block_icon.png" class="lock" id="lock_btn2" ontouchstart="toggleLockGlancing(event);"/>
 				
 				<div class="arrow_r"  id="arrow_r" ontouchstart="#"></div>
-				<img src="images/arrow_r.png" class="arrow" id="arrow_r2" ontouchstart="#"/>
+				<img src="images/arrow_r.png" class="arrow" id="arrow_r2" ontouchstart="#"/> <!-- countDown(event); -->
 				
 				<div class="arrow_r"  id="arrow_l" ontouchstart="#"></div>
-				<img src="images/arrow_l.png" class="arrow" id="arrow_l2" ontouchstart="#"/>
+				<img src="images/arrow_l.png" class="arrow" id="arrow_l2" ontouchstart="#"/> <!-- countUp(event); -->
 
 	</div>
 	<!--END INTERACTION MODE-->
 
-
 			<!--ZONE-->
-			
-			
+				
 	<?php
-
-	parserSide("http://news.yahoo.com/rss/tech");
+	parserSide("http://news.yahoo.com/rss/gaming");
 	function parserSide($feedURL) {
 		$rss = simplexml_load_file($feedURL);
 
@@ -201,9 +151,9 @@ try {
 		$i = 0;
 		foreach ($rss->channel->item as $feedItem) {
 			$i++;
-			echo "<div class='articles' id='article' style=\"background: url('http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg') no-repeat;\">\n";
+			echo "<div class='articles' id='article' ontouchend=\"openArticle(event)\" style=\"background: url('http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg') no-repeat;\">\n";
 			echo "<img class='image_scanning' src='http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg' />";
-			echo "<h1 class='article_title' id='article_title'>" . $feedItem -> title . "</h1>";
+			echo "<h1 class='article_title' id='article_title' ontouchend=\"openArticle(event)\">" . $feedItem -> title . "</h1>";
 			echo "<div class='title_bg'></div>";
 			echo "<div class='article_side'></div>";
 			echo "<div class='content_reading'>";
@@ -218,35 +168,187 @@ try {
 			echo "</div>";
 			if ($i >= 2)
 				break;
-
 		}
 		echo "</div>";
 	}
 ?>
-	
 			<!--END ZONE-->
 			
 			<!--POSITION INDICATION-->
 			
-			<div class="position" id="position"></div>
+			<div class="position" id="position" ></div>
 			
 			<!--END POSITION INDICATION-->
 	</body>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://labs.skinkers.com/content/touchSwipe/jquery.touchSwipe.min.js"></script>
 	<script type="text/javascript">
+		var mode;
+
+		$(".articles").swipe({
+			swipeUp : function(event, direction, distance, duration, fingerCount) {
+				alert('Saved');
+			}
+		});
+
+		function openArticle(e) {
+
+			if (mode == "reading") {
+			} else {
+
+				$('.dark_layer').css({
+					"display" : "block"
+				});
+
+				$('.title_bg_open').css({
+					"display" : "block"
+				});
+
+				$('.content_open').css({
+					"display" : "block"
+				});
+
+				$('.reading_text_open').css({
+					"display" : "block"
+				});
+
+				$('.facebook_open').css({
+					"display" : "block"
+				});
+
+				$('.facebook_bg_open').css({
+					"display" : "block"
+				});
+
+				$('.twitter_open').css({
+					"display" : "block"
+				});
+
+				$('.twitter_bg_open').css({
+					"display" : "block"
+				});
+
+				$('.reading_footer_open').css({
+					"display" : "block"
+				});
+
+				$('.close').css({
+					"display" : "block"
+				});
+
+				$('.close_img').css({
+					"display" : "block"
+				});
+
+			}
+			var zone_t = document.getElementById("zone_t").innerHTML;
+
+			if (zone_t == "Design") {
+
+				$('.title_bg_open').css({
+					"background-color" : "#C6563E"
+				});
+			} else if (zone_t == "Astronomy") {
+				$('.title_bg_open').css({
+					"background-color" : "#20BBBB"
+				});
+			} else if (zone_t == "Business") {
+				$('.title_bg_open').css({
+					"background-color" : "#87939B"
+				});
+			} else if (zone_t == "Fashion") {
+				$('.title_bg_open').css({
+					"background-color" : "#AD69C9"
+				});
+			} else if (zone_t == "Lifestyle") {
+				$('.title_bg_open').css({
+					"background-color" : "#E58B41"
+				});
+			} else if (zone_t == "Film") {
+				$('.title_bg_open').css({
+					"background-color" : "#20262B"
+				});
+			} else if (zone_t == "Food") {
+				$('.title_bg_open').css({
+					"background-color" : "#80658A"
+				});
+			} else if (zone_t == "Gaming") {
+				$('.title_bg_open').css({
+					"background-color" : "#309C71"
+				});
+			} else if (zone_t == "Music") {
+				$('.title_bg_open').css({
+					"background-color" : "#DDDD3E"
+				});
+			} else if (zone_t == "Science") {
+				$('.title_bg_open').css({
+					"background-color" : "#35AABA"
+				});
+			} else if (zone_t == "Sports") {
+				$('.title_bg_open').css({
+					"background-color" : "#B56E3E"
+				});
+			} else if (zone_t == "Technology") {
+				$('.title_bg_open').css({
+					"background-color" : "#3E92C1"
+				});
+			}
+		}
+
+		function closeArticle(e) {
+			$('.dark_layer').css({
+				"display" : "none"
+			});
+
+			$('.title_bg_open').css({
+				"display" : "none"
+			});
+
+			$('.content_open').css({
+				"display" : "none"
+			});
+
+			$('.reading_text_open').css({
+				"display" : "none"
+			});
+
+			$('.facebook_open').css({
+				"display" : "none"
+			});
+
+			$('.facebook_bg_open').css({
+				"display" : "none"
+			});
+
+			$('.twitter_open').css({
+				"display" : "none"
+			});
+
+			$('.twitter_bg_open').css({
+				"display" : "none"
+			});
+
+			$('.reading_footer_open').css({
+				"display" : "none"
+			});
+
+			$('.close').css({
+				"display" : "none"
+			});
+
+			$('.close_img').css({
+				"display" : "none"
+			});
+
+		}
+
 		//window.onload = moveArticles;
 
 		var count = document.getElementById('article_title').innerHTML.split(' ').length;
 
-		if (count <= 9) {
-			$('.title_bg').css({
-				"margin-top" : "-104px"
-			});
-		}
-
 		//COLOR POSITION
 
-		var zone_color =                                                                 
+		var zone_color =                                                                                                     
 <?php echo json_encode($zone_color); ?>
 	;
 
@@ -431,7 +533,8 @@ try {
 			"float" : "left",
 			"margin-left" : "-83px",
 			"padding-right" : "10px",
-			"margin-top" : "-38px"
+			"margin-top" : "-38px",
+			"margin-right" : "5px"
 		});
 
 		$('.article_img').css({
@@ -457,7 +560,7 @@ try {
 				"background-color" : "#13292D",
 				"opacity" : "0.9",
 				"margin-left" : "0px",
-				"margin-top" : "-67px"
+				"margin-top" : "-60px"
 			});
 		} else {
 
@@ -584,9 +687,7 @@ try {
 					vx = vx + ax;
 				}
 				vx = vx * 0.99;
-				vy = vy * 0.99;
-				y = parseInt(y + vy / 50);
-				x = parseInt(x + vx / 50);
+				x = parseInt(x + vx / 5);
 				articles.style.left = x + "px";
 				//position.style.left = x + "px";
 
@@ -595,7 +696,8 @@ try {
 	}
 
 	function switchToScanningMode(e) {
-
+		
+		mode = "scanning";
 		//Switch button
 
 		document.getElementById("main_btn3").src = "images/scanning.png";
@@ -609,15 +711,15 @@ try {
 		$('.zone').css({
 			"width" : "250px",
 			"height" : "200px",
-			"margin:" : "110px 20px 20px 10px",
-			"float:" : "left"
+			"margin" : "110px 20px 20px 10px",
+			"float" : "left"
 		});
 
 		$('.articles').css({
 			"width" : "570px",
 			"height" : "150px",
 			"position" : "relative",
-			"margin" : "-38px 0 0 -83px",
+			"margin" : "-38px 20px 50px -83px",
 			"float" : "left",
 			"padding-right" : "10px",
 			"backgroundSize" : "100px 180px"
@@ -632,11 +734,12 @@ try {
 		});
 
 		$('.article_title').css({
-			"width" : "330px",
+			"width" : "340px",
 			"font-size" : "22px",
 			"padding-left" : "240px",
-			"margin-top" : "-122px",
+			"margin-top" : "-110px",
 			"position" : "relative",
+			"padding-top" : "0px",
 			"z-index" : "50"
 		});
 
@@ -645,7 +748,7 @@ try {
 			"height" : "150px",
 			"background-color" : "#13292D",
 			"margin-left" : "220px",
-			"margin-top" : "-133px"
+			"margin-top" : "-116px"
 		});
 
 		$('.article_side').css({
@@ -653,7 +756,9 @@ try {
 			"width" : "13px",
 			"height" : "150px",
 			"position" : "relative",
-			"z-index" : "51"
+			"z-index" : "51",
+			"margin-top" : "-150px",
+			"margin-left" : "567px"
 		});
 
 		$('.zone_bg').css({
@@ -708,7 +813,16 @@ try {
 		});
 
 		$('.lock').css({
-			"display" : "block"
+			"display" : "block",
+			"margin-top" : "383px"
+		});
+
+		$('#arrow_r2').css({
+			"margin-top" : "293px"
+		});
+
+		$('#arrow_l2').css({
+			"margin-top" : "477px"
 		});
 
 		$('.image_scanning').css({
@@ -761,9 +875,66 @@ try {
 
 		});
 
+		$('header').css({
+			"position" : "absolute",
+			"z-index" : "0",
+			"overflow" : "auto"
+		});
+
+		$('.main_btn').css({
+			"position" : "absolute",
+			"overflow" : "auto"
+		});
+
+		$('.scanning').css({
+			"position" : "absolute",
+			"overflow" : "auto"
+		});
+
+		$('#interaction_modes').css({
+			"position" : "absolute"
+		});
+
+		$('body').css({
+			"background" : "url('images/bg.jpg') no-repeat"
+		});
+
+	//window.onload = init;
+	}
+	
+/*	
+	var articles = null;
+	var speed = 0;
+	
+	function init() {
+		articles = document.getElementById("all_articles");
+		articles.style.left = '0px';
 	}
 
+	function toggleLockGlancing(e) {
+		//STOP DE FLOW
+		speed = 0;
+	}
+
+	function countUp(e) {
+		speed++;
+		doMove();
+	}
+	function countDown(e) {
+		speed--;
+		doMove();
+	}
+	function doMove() {
+		var sp = parseInt(articles.style.left);
+		articles.style.left = sp + speed + 'px';
+		setTimeout(doMove,20);
+	}
+*/	
+	
+
 	function switchToReadingMode(e) {
+
+		mode = "reading";
 
 		//Switch button
 
@@ -865,8 +1036,8 @@ try {
 		$('.zone').css({
 			"width" : "250px",
 			"height" : "600px",
-			"margin:" : "10px 20px 20px 10px",
-			"float:" : "left"
+			"margin" : "10px 20px 20px 10px",
+			"float" : "left"
 		});
 
 		$('.zone_bg').css({
@@ -1017,7 +1188,7 @@ try {
 		$('#interaction_modes').css({
 			"position" : "fixed"
 		});
-		
+
 		$('body').css({
 			"background" : "url('images/bg.jpg') repeat"
 		});
@@ -1025,11 +1196,10 @@ try {
 		$('.scanning').css({
 			"padding-top" : "90px"
 		});
-		
+
 		$('#all_articles').css({
 			"margin-left" : "80px"
 		});
-		
 
 	}
 

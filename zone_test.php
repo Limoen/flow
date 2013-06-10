@@ -1,105 +1,120 @@
 <?php
 
-$currentPage = 'saved';
+$currentPage = 'zone';
 
 session_start();
 
-try {
-	include_once ("classes/Article.class.php");
+$zone_id = $_GET['id'];
 
-	$article = new Article();
-	$userarticles = $article -> getUserArticles($_SESSION['id']);
+try {
+	include_once ("classes/Zone.class.php");
+
+	$zone = new Zone();
+	$zone_name = $zone -> getZoneById($zone_id);
+	$temp = $zone_name -> fetch_assoc();
 
 	$zone_color = $temp['zone_color'];
 	$zone_feed = $temp['zone_feed'];
 
+	$mode = $_GET['variable'];
+
 } catch (Exception $e) {
-	$feedback = $e -> getMessage();
 
 }
 ?><!DOCTYPE html>
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-	<link rel="apple-touch-icon-precomposed" href="../images/icon.png"/>
-	<meta name="description" content="" />
-	<meta name="author" content="Sonny Willems" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-	<link id= "css" rel="stylesheet" type="text/css" href="css/style2.css" />
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,700' rel='stylesheet' type='text/css'>
-	<title>Saved</title>
-</head>
-<body>
-	<div class="container">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link rel="apple-touch-icon-precomposed" href="../images/icon.png"/>
+		<meta name="description" content="" />
+		<meta name="author" content="Sonny Willems" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+		<link id= "css" rel="stylesheet" type="text/css" href="css/style2.css" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,700' rel='stylesheet' type='text/css'>
+		<title>Zone</title>
+	</head>
+	<body>
+		<div class="container">
 
-		<!--NAVIGATION HEADER-->
+			<!--NAVIGATION HEADER-->
 
-		<header>
-			<div class="header">
-				&nbsp;
-			</div>
-
-			<div class="settings" ontouchstart="window.location.href='zones.php'" id="zones_btn">
+			<header>
+				<div class="header">
+					&nbsp;
+				</div>
+				
+				<div class="settings" ontouchstart="window.location.href='zones.php'" id="zones_btn">
 				<img src="images/zones.png" class="logo_zones" ontouchstart="window.location.href='zones.php'" />
-			</div>
-			<div class="settings" ontouchstart="window.location.href='favorites.php'" id="favorites">
-				<img src="images/favorites_icon.png"
-				class="icon" id="icon_favorites" ontouchstart="window.location.href='favorites.php'"/>
-			</div>
-			<img src="images/line.png" class="line"/>
-			<img src="images/search_icon.png" class="icon" id="icon_search" ontouchstart="#"/>
-			<div class="settings" ontouchstart="#">
+					</div>
+				<div class="settings" ontouchstart="window.location.href='favorites.php'" id="favorites">
+					<img src="images/favorites_icon.png"
+					class="icon" id="icon_favorites" ontouchstart="window.location.href='favorites.php'"/>
+				</div>
+				<img src="images/line.png" class="line"/>
+				<img src="images/search_icon.png" class="icon" id="icon_search" ontouchstart="#"/>
+				<div class="settings" ontouchstart="#">
 
-			</div>
-			<div class="title" id="zone_title">
-				<p id="zone_t">
-					SAVED
-				</p>
-			</div>
-		</header>
+				</div>
+				<div class="title" id="zone_title">
+					<p id="zone_t"><?=$temp['zone_name'] ?></p>
+				</div>
+			</header>
+			
+			<!--END NAVIGATION HEADER-->
 
-		<!--END NAVIGATION HEADER-->
-
-		<!--OPEN ARTICLE-->
-
-		<img src="images/close.png" class="close_img" ontouchstart="closeArticle(event);"/>
-		<div class="close" ontouchstart="closeArticle(event);"></div>
-		<div class='title_bg_open'>
-
+			<!--OPEN ARTICLE-->
+			
+			<img src="images/close.png" class="close_img" ontouchstart="closeArticle(event);"/>
+			<div class="close" ontouchstart="closeArticle(event);"></div>
+				<div class='title_bg_open'>
+															
 			<?php
+			parserSide2("http://news.yahoo.com/rss/gaming");
+			function parserSide2($feedURL) {
+				$rss = simplexml_load_file($feedURL);
 
-			if (isset($article)) {
-				while ($articles = $userarticles -> fetch_assoc()) {
-					echo "<h1 class='article_title_open' id='article_title' ontouchstart=\"openArticle(event)\">" . $articles['article_title'] . "</h1>";
-					echo "<div class='reading_text_open'>" . $articles['article_text'] . "</div>";
+				$i = 2;
+				foreach ($rss->channel->item as $feedItem) {
+					$i++;
+					echo "<h1 class='article_title_open' id='article_title' ontouchstart=\"openArticle(event)\">" . $feedItem -> title . "</h1>";
+					echo "<div class='reading_text_open'>" . $feedItem -> description . "</div>";
 
+					if ($i >= 1)
+						break;
 				}
 			}
-			?>
-		</div>
-		<div class='content_open'>
-			<?php
-			if (isset($article)) {
-				while ($articles = $userarticles -> fetch_assoc()) {
-					echo "<p class='reading_footer_open'>" . $articles['article_source'] . " | " . $articles['article_date'] . "</p>";
-					echo "<div class='reading_text_open'>" . $articles['article_text'] . "</div>";
-					echo "<img class='facebook_open' src='images/facebook-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
-					echo "<div class='facebook_bg_open' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
-					echo "<img class='twitter_open' src='images/twitter-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
-					echo "<div class='twitter_bg_open' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
-				}
-			}
-			?>
-		</div>
-		<div class="dark_layer"></div>
+		?>						
+				</div>
+			<div class='content_open'>
+									<?php
+									parserSide3("http://news.yahoo.com/rss/gaming");
+									function parserSide3($feedURL) {
+										$rss = simplexml_load_file($feedURL);
 
-		<!--END OPEN ARTICLE-->
+										$i = 2;
+										foreach ($rss->channel->item as $feedItem) {
+											$i++;
+											echo "<p class='reading_footer_open'>" . $feedItem -> source . " | " . $feedItem -> pubDate . "</p>";
+											echo "<div class='reading_text_open'>" . $feedItem -> description . "</div>";
+											echo "<img class='facebook_open' src='images/facebook-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
+											echo "<div class='facebook_bg_open' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
+											echo "<img class='twitter_open' src='images/twitter-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
+											echo "<div class='twitter_bg_open' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
+											if ($i >= 1)
+												break;
+										}
+									}
+		?>					
+			</div>
+			<div class="dark_layer"></div>
+			
+			<!--END OPEN ARTICLE-->
+					
+			<!--INTERACTION MODE-->
 
-		<!--INTERACTION MODE-->
-
-		<div class="main_btn"  id="main_btn" ontouchstart="toggleMenu(event)"></div>
-		<img src="images/scanning.png" class="scanning" id="main_btn3" ontouchstart="toggleMenu(event)"/>
+		<div class="main_btn"  id="main_btn" ontouchstart="toggleMenu(event);"></div>
+		<img src="images/scanning.png" class="scanning" id="main_btn3" ontouchstart="toggleMenu(event);"/>
 		<div id="interaction_modes">
 			<div class="reading_btn" id="reading_btn" ontouchstart="switchToReadingMode(event);">
 				<img src="images/reading.png" class="reading" id="reading_btn" ontouchstart="switchToReadingMode(event);"/>
@@ -113,223 +128,227 @@ try {
 				<img src="images/logo_small.png" class="glancing" id="glancing_btn" ontouchstart="switchToGlancingMode(event);"/>
 			</div>
 		</div>
-		<div class="lock_btn"  id="lock_btn" ontouchstart="toggleLockGlancing(event)"></div>
-		<img src="images/block_icon.png" class="lock" id="lock_btn2" ontouchstart="toggleLockGlancing(event)"/>
-
-		<div class="arrow_r"  id="arrow_r" ontouchstart="#"></div>
-		<img src="images/arrow_r.png" class="arrow" id="arrow_r2" ontouchstart="#"/>
-
-		<div class="arrow_r"  id="arrow_l" ontouchstart="#"></div>
-		<img src="images/arrow_l.png" class="arrow" id="arrow_l2" ontouchstart="#"/>
+				<div class="lock_btn"  id="lock_btn" ontouchstart="toggleLockGlancing(event);"></div>
+				<img src="images/block_icon.png" class="lock" id="lock_btn2" ontouchstart="toggleLockGlancing(event);"/>
+				
+				<div class="arrow_r"  id="arrow_r" ontouchstart="countDown(event);"></div>
+				<img src="images/arrow_r.png" class="arrow" id="arrow_r2" ontouchstart="countDown(event);"/> <!-- countDown(event); -->
+				
+				<div class="arrow_r"  id="arrow_l" ontouchstart="countUp(event);"></div>
+				<img src="images/arrow_l.png" class="arrow" id="arrow_l2" ontouchstart="countUp(event);"/> <!-- countUp(event); -->
 
 	</div>
 	<!--END INTERACTION MODE-->
 
-	<!--ZONE-->
-
+			<!--ZONE-->
+				
 	<?php
+	parserSide("http://news.yahoo.com/rss/gaming");
+	function parserSide($feedURL) {
+		$rss = simplexml_load_file($feedURL);
 
-	if (isset($article)) {
 		echo "<div id='all_articles'>";
-
-		while ($articles = $userarticles -> fetch_assoc()) {
+		$i = 0;
+		foreach ($rss->channel->item as $feedItem) {
+			$i++;
 			echo "<div class='articles' id='article' ontouchend=\"openArticle(event)\" style=\"background: url('http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg') no-repeat;\">\n";
 			echo "<img class='image_scanning' src='http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg' />";
-			echo "<h1 class='article_title' id='article_title' ontouchend=\"openArticle(event)\">" . $articles['article_title'] . "</h1>";
+			echo "<h1 class='article_title' id='article_title' ontouchend=\"openArticle(event)\">" . $feedItem -> title . "</h1>";
 			echo "<div class='title_bg'></div>";
 			echo "<div class='article_side'></div>";
 			echo "<div class='content_reading'>";
-			echo "<div class='reading_text'>" . $articles['article_text'] . "</div>";
+			echo "<div class='reading_text'>" . $feedItem -> description . "</div>";
 			echo "<img class='image_reading' src='http://rack.1.mshcdn.com/media/ZgkyMDEzLzA1LzMwLzNmL1dpbmRvd3M4ZXZlLmMxOTY5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/917731f5/c02/Windows-8-event.jpg' />";
-			echo "<p class='reading_footer'>" . $articles['article_source'] . " | " . $articles['article_date'] . "</p>";
-			echo "<img class='facebook' src='images/facebook-grey.png' ontouchstart=\"window.location.href='" . $articles['article_title'] . "'\" />";
-			echo "<div class='facebook_bg' ontouchstart=\"window.location.href='" . $articles['article_title'] . "'\"></div>";
-			echo "<img class='twitter' src='images/twitter-grey.png' ontouchstart=\"window.location.href='" . $articles['article_title'] . "'\" />";
-			echo "<div class='twitter_bg' ontouchstart=\"window.location.href='" . $articles['article_title'] . "'\"></div>";
+			echo "<p class='reading_footer'>" . $feedItem -> source . " | " . $feedItem -> pubDate . "</p>";
+			echo "<img class='facebook' src='images/facebook-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
+			echo "<div class='facebook_bg' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
+			echo "<img class='twitter' src='images/twitter-grey.png' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\" />";
+			echo "<div class='twitter_bg' ontouchstart=\"window.location.href='" . $temp['zone_link'] . "'\"></div>";
 			echo "</div>";
 			echo "</div>";
+			if ($i >= 2)
+				break;
 		}
 		echo "</div>";
-
 	}
-	?>
-	<!--END ZONE-->
+?>
+			<!--END ZONE-->
+			
+			<!--POSITION INDICATION-->
+			
+			<div class="position" id="position" ></div>
+			
+			<!--END POSITION INDICATION-->
+	</body>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://labs.skinkers.com/content/touchSwipe/jquery.touchSwipe.min.js"></script>
+	<script type="text/javascript">
+		var mode;
 
-	<!--POSITION INDICATION-->
+		$(".articles").swipe({
+			swipeUp : function(event, direction, distance, duration, fingerCount) {
+				alert('Saved');
+			}
+		});
 
-	<div class="position" id="position" ></div>
+		function openArticle(e) {
 
-	<!--END POSITION INDICATION-->
-</body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="http://labs.skinkers.com/content/touchSwipe/jquery.touchSwipe.min.js"></script>
-<script type="text/javascript">
-	var mode;
+			if (mode == "reading") {
+			} else {
 
-	$(".articles").swipe({
-		swipeUp : function(event, direction, distance, duration, fingerCount) {
-			alert('Saved');
+				$('.dark_layer').css({
+					"display" : "block"
+				});
+
+				$('.title_bg_open').css({
+					"display" : "block"
+				});
+
+				$('.content_open').css({
+					"display" : "block"
+				});
+
+				$('.reading_text_open').css({
+					"display" : "block"
+				});
+
+				$('.facebook_open').css({
+					"display" : "block"
+				});
+
+				$('.facebook_bg_open').css({
+					"display" : "block"
+				});
+
+				$('.twitter_open').css({
+					"display" : "block"
+				});
+
+				$('.twitter_bg_open').css({
+					"display" : "block"
+				});
+
+				$('.reading_footer_open').css({
+					"display" : "block"
+				});
+
+				$('.close').css({
+					"display" : "block"
+				});
+
+				$('.close_img').css({
+					"display" : "block"
+				});
+
+			}
+			var zone_t = document.getElementById("zone_t").innerHTML;
+
+			if (zone_t == "Design") {
+
+				$('.title_bg_open').css({
+					"background-color" : "#C6563E"
+				});
+			} else if (zone_t == "Astronomy") {
+				$('.title_bg_open').css({
+					"background-color" : "#20BBBB"
+				});
+			} else if (zone_t == "Business") {
+				$('.title_bg_open').css({
+					"background-color" : "#87939B"
+				});
+			} else if (zone_t == "Fashion") {
+				$('.title_bg_open').css({
+					"background-color" : "#AD69C9"
+				});
+			} else if (zone_t == "Lifestyle") {
+				$('.title_bg_open').css({
+					"background-color" : "#E58B41"
+				});
+			} else if (zone_t == "Film") {
+				$('.title_bg_open').css({
+					"background-color" : "#20262B"
+				});
+			} else if (zone_t == "Food") {
+				$('.title_bg_open').css({
+					"background-color" : "#80658A"
+				});
+			} else if (zone_t == "Gaming") {
+				$('.title_bg_open').css({
+					"background-color" : "#309C71"
+				});
+			} else if (zone_t == "Music") {
+				$('.title_bg_open').css({
+					"background-color" : "#DDDD3E"
+				});
+			} else if (zone_t == "Science") {
+				$('.title_bg_open').css({
+					"background-color" : "#35AABA"
+				});
+			} else if (zone_t == "Sports") {
+				$('.title_bg_open').css({
+					"background-color" : "#B56E3E"
+				});
+			} else if (zone_t == "Technology") {
+				$('.title_bg_open').css({
+					"background-color" : "#3E92C1"
+				});
+			}
 		}
-	});
 
-	function openArticle(e) {
-
-		if (mode == "reading") {
-		} else {
-
+		function closeArticle(e) {
 			$('.dark_layer').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.title_bg_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.content_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.reading_text_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.facebook_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.facebook_bg_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.twitter_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.twitter_bg_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.reading_footer_open').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.close').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 			$('.close_img').css({
-				"display" : "block"
+				"display" : "none"
 			});
 
 		}
-		var zone_t = document.getElementById("zone_t").innerHTML;
 
-		if (zone_t == "Design") {
+		//window.onload = moveArticles;
 
-			$('.title_bg_open').css({
-				"background-color" : "#C6563E"
-			});
-		} else if (zone_t == "Astronomy") {
-			$('.title_bg_open').css({
-				"background-color" : "#20BBBB"
-			});
-		} else if (zone_t == "Business") {
-			$('.title_bg_open').css({
-				"background-color" : "#87939B"
-			});
-		} else if (zone_t == "Fashion") {
-			$('.title_bg_open').css({
-				"background-color" : "#AD69C9"
-			});
-		} else if (zone_t == "Lifestyle") {
-			$('.title_bg_open').css({
-				"background-color" : "#E58B41"
-			});
-		} else if (zone_t == "Film") {
-			$('.title_bg_open').css({
-				"background-color" : "#20262B"
-			});
-		} else if (zone_t == "Food") {
-			$('.title_bg_open').css({
-				"background-color" : "#80658A"
-			});
-		} else if (zone_t == "Gaming") {
-			$('.title_bg_open').css({
-				"background-color" : "#309C71"
-			});
-		} else if (zone_t == "Music") {
-			$('.title_bg_open').css({
-				"background-color" : "#DDDD3E"
-			});
-		} else if (zone_t == "Science") {
-			$('.title_bg_open').css({
-				"background-color" : "#35AABA"
-			});
-		} else if (zone_t == "Sports") {
-			$('.title_bg_open').css({
-				"background-color" : "#B56E3E"
-			});
-		} else if (zone_t == "Technology") {
-			$('.title_bg_open').css({
-				"background-color" : "#3E92C1"
-			});
-		}
-	}
+		var count = document.getElementById('article_title').innerHTML.split(' ').length;
 
-	function closeArticle(e) {
-		$('.dark_layer').css({
-			"display" : "none"
-		});
+		//COLOR POSITION
 
-		$('.title_bg_open').css({
-			"display" : "none"
-		});
-
-		$('.content_open').css({
-			"display" : "none"
-		});
-
-		$('.reading_text_open').css({
-			"display" : "none"
-		});
-
-		$('.facebook_open').css({
-			"display" : "none"
-		});
-
-		$('.facebook_bg_open').css({
-			"display" : "none"
-		});
-
-		$('.twitter_open').css({
-			"display" : "none"
-		});
-
-		$('.twitter_bg_open').css({
-			"display" : "none"
-		});
-
-		$('.reading_footer_open').css({
-			"display" : "none"
-		});
-
-		$('.close').css({
-			"display" : "none"
-		});
-
-		$('.close_img').css({
-			"display" : "none"
-		});
-
-	}
-
-	//window.onload = moveArticles;
-
-	var count = document.getElementById('article_title').innerHTML.split(' ').length;
-
-	//COLOR POSITION
-
-	var zone_color = 
+		var zone_color =                                                                                                     
 <?php echo json_encode($zone_color); ?>
 	;
 
@@ -434,7 +453,7 @@ try {
 	}
 
 	//SIZE OF PHOTOS
-
+/*
 	function moveArticles() {
 
 		var x = 0, y = 0, vx = 0, vy = 0, ax = 0, ay = 0;
@@ -473,6 +492,7 @@ try {
 		}
 
 	}
+*/
 
 	function toggleMenu(e) {
 
@@ -645,7 +665,7 @@ try {
 		var x = 0, y = 0, vx = 0, vy = 0, ax = 0, ay = 0;
 		var articles = document.getElementById("all_articles");
 		var position = document.getElementById("position");
-
+/*
 		if (window.DeviceMotionEvent != undefined) {
 			window.ondevicemotion = function(e) {
 				ax = event.accelerationIncludingGravity.x * 5;
@@ -674,12 +694,12 @@ try {
 
 			}, 25);
 		}
+*/
 	}
 
 	function switchToScanningMode(e) {
-
+		
 		mode = "scanning";
-
 		//Switch button
 
 		document.getElementById("main_btn3").src = "images/scanning.png";
@@ -881,7 +901,36 @@ try {
 			"background" : "url('images/bg.jpg') no-repeat"
 		});
 
+	window.onload = init;
 	}
+		
+	var articles = null;
+	var speed = 0;
+	
+	function init() {
+		articles = document.getElementById("all_articles");
+		articles.style.left = '0px';
+	}
+
+	function toggleLockGlancing(e) {
+		//STOP DE FLOW
+		speed = 0;
+	}
+
+	function countUp(e) {
+		speed++;
+		doMove();
+	}
+	function countDown(e) {
+		speed--;
+		doMove();
+	}
+	function doMove() {
+		var sp = parseInt(articles.style.left);
+		articles.style.left = sp + speed + 'px';
+		setTimeout(doMove,20);
+	}	
+	
 
 	function switchToReadingMode(e) {
 
@@ -1153,11 +1202,12 @@ try {
 		});
 
 	}
-
+/*
 	function toggleLockGlancing(e) {
 		//STOP DE FLOW
 		alert("Unlock");
 
 	}
+*/
 </script>
 </html>

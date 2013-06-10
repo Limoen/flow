@@ -62,6 +62,10 @@ class User {
 			//0 - velden uitlezen
 			$password = md5($link -> real_escape_string($_POST['inp_password_name']));
 			$email = $link -> real_escape_string($_POST['inp_email_name']);
+			//$avatar = $link -> real_escape_string($_POST['inp_upload']);
+			
+			//$newName = time() . $_FILES['inp_upload']['inp_user_name'];
+			//move_uploaded_file($_FILES['inp_upload']['tmp_inp_user_name'], "images/" . $newName);
 		}
 
 		$sSql = "INSERT INTO tblUsers (user_name,user_password,user_email) VALUES ('" . mysqli_real_escape_string($link, $this -> m_sUserName) . "','$password','$email');";

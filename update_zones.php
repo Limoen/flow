@@ -35,12 +35,4 @@ try {
 		echo $feedback;
 		?>
 	</body>
-</html></title>
-	</head>
-	<body>
-		<?php
-
-		echo $feedback;
-		?>
-	</body>
 </html>

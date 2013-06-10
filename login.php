@@ -65,6 +65,7 @@ if(isset($_POST['submitlogin'])){
 	<link rel="apple-touch-icon-precomposed" href="images/icon.png"/>
 	<link rel="stylesheet" href="css/reset.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/portrait.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Dosis:200|Roboto:100,300,400' rel='stylesheet' type='text/css'>
 	
 	<title>Flow | Login</title>
@@ -81,6 +82,7 @@ if(isset($_POST['submitlogin'])){
     
 </head>
 <body>
+	<div id="portrait">View in landscape mode on iPad</div>
 	<img src="images/city.jpg" alt="achtergrond" class="bg"/>
     
     <div class="logfeedback">

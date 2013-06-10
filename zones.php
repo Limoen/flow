@@ -147,8 +147,6 @@ try {
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
-
-
 	var main_btn = document.getElementById("main_btn");
 
 	function toggleMenu(e) {
@@ -195,8 +193,7 @@ try {
 		$('.zone').css({
 			"width" : "790px",
 			"height" : "70px",
-			"margin-top" : "60px",
-			"float:" : "right"
+			"margin" : "60px 0 20px 0"
 		});
 
 		$('.zone_bg').css({
@@ -272,8 +269,8 @@ try {
 		$('.zone').css({
 			"width" : "250px",
 			"height" : "200px",
-			"margin:" : "110px 20px 20px 10px",
-			"float:" : "left"
+			"margin" : "110px 20px -48px 10px",
+			"float" : "left"
 		});
 
 		$('.zone_bg').css({
@@ -341,8 +338,8 @@ try {
 		$('.zone').css({
 			"width" : "250px",
 			"height" : "600px",
-			"margin:" : "10px 20px 20px 10px",
-			"float:" : "left"
+			"margin" : "60px 20px 20px 10px",
+			"float" : "left"
 		});
 
 		$('.zone_bg').css({

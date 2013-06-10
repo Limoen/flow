@@ -44,6 +44,15 @@ input[type='submit']
    appearance: none;
    border: none;
 }
+input[type='file']
+{
+   opacity: 0;
+   height: 50px;
+   margin-bottom: -45px;
+}
+#uploadtxt {
+	margin-top: -15px;
+}
 form {
 	width: 260px;
 }
@@ -206,6 +215,49 @@ a#forgot{
 	margin-left: 55px;
 	color: #FFF;
 	font-weight: 300;
+}
+a#remember {
+	margin-left: 90px;
+	color: #FFF;
+	font-weight: 300;
+}
+
+/************/
+/** Forgot **/
+/************/
+
+.forgotfeedback {
+	position: relative;
+	margin: 0 auto;
+	width: 380px;
+	float: right;
+	margin-top: 366px;
+}
+
+#feedback_forgot {
+	position: absolute;
+    background-color: rgba(0, 183, 186, 0.4);
+    width: 170px;
+	padding: 15px 20px 18px 0px;
+	left: 35px;
+	color: #FFF;
+	font-weight: 300;
+    -webkit-border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+#feedback_forgot:before {
+   content:"";
+   position: absolute;
+   width: 0;
+   height: 0;
+   border-top: 25px solid transparent;
+   border-right: 35px solid rgba(0, 183, 186, 0.4);
+   border-bottom: 24px solid transparent;
+   margin: -15px 10px 0 -35px;
 }
 
 /**************/

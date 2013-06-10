@@ -1,5 +1,5 @@
 <?php
-header('Refresh: 5; url=http://flowapp.be/beta/zones.php');
+header('Refresh: 2; url=http://flowapp.be/beta/zones.php');
 
 session_start();
 
@@ -52,4 +52,3 @@ try {
     </div>
 </body>
 </html>
-ml>

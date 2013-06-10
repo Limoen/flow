@@ -48,35 +48,7 @@
 
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
-		
-	$(document).ready(function(){
-		/*
-		$("#inp_user_id").keyup(function(){
-			//console.log($(this).val());
-			//toon feedback
-			$(".userfeed").fadeIn();
-			
-			var username = $(this).val();
-			$.ajax({
-				type: "POST",
-				url: "ajax/check_username.php",
-				data: { username:username }
-			}).done(function( msg ) {
-				// verberg load idicator
-				// $("#loadingImage").hide();
-				if(msg.status != "error"){
-					if(msg.exists == "no"){
-						// username is vrij !
-						$("#userfeed").attr("src", $(this).attr("src").replace('-empty', '-avail'));
-						$("#userfeed").attr("src", $(this).attr("src").replace('-unavail', '-avail'));
-					} else {
-						$("#userfeed").attr("src", $(this).attr("src").replace('-empty', '-unavail'));
-						$("#userfeed").attr("src", $(this).attr("src").replace('-avail', '-unavail'));
-					}
-				};  
-			});
-			*/
-			
+		$(document).ready(function(){
 			var fb = document.getElementById("regfeedback");
 			if(!fb.hasChildNodes()) {
 				fb.style.display='none'
@@ -99,6 +71,7 @@
 				pass2.style.width = "234px";
 			}
 		}
+		
 	</script>
 </head>
 
@@ -128,15 +101,11 @@
 		       	<input type="password" name="inp_password_name" id="pass1" placeholder="password"/>
 
                 <input type="password" name="check_password" id="pass2" onkeyup="checkPass(); return false;" placeholder="repeat password"/>
-		       	
+                
+                <input type="file" name="inp_upload" onchange="this.form.fakeUpload.value=this.value;"/>
+				<input type="text" id="uploadtxt" name="fakeUpload" placeholder="upload picture"/>
+
 		        <input type="submit" name="btn_register_name" id="register_btn" value="CREATE ACCOUNT"/>
-			</form>
-			
-			<a href="#" ontouchstart="window.location.href='login.php'">Already registered?</a>
-		</div>
-	</div>
-</body>
-</html>it" name="btn_register_name" id="register_btn" value="CREATE ACCOUNT"/>
 			</form>
 			
 			<a href="#" ontouchstart="window.location.href='login.php'">Already registered?</a>
